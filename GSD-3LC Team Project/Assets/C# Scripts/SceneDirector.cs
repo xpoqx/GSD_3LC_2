@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SceneDirector : MonoBehaviour
 {
-    GameObject Scene1, Scene2;
+    GameObject Scene1, Scene2, Scene3, Scene4;
     public Text text1;
     public static int SceneNo;
     public int ChangeScene;
@@ -20,25 +20,32 @@ public class SceneDirector : MonoBehaviour
     void Start()
     {
         SceneNo = 1;
-        Scene1 = GameObject.Find("Scene1");
-        Scene2 = GameObject.Find("Scene2");
+        Scene1 = GameObject.Find("CutScene1");
+        Scene2 = GameObject.Find("CutScene2");
+        Scene3 = GameObject.Find("CutScene3");
+        Scene4 = GameObject.Find("CutScene4");
         text1 = GameObject.Find("Text").GetComponent<Text>();
         //talkpanel.SetActive(true);
         ChangeScene = 1;
+        Scene2.SetActive(false);
+        Scene3.SetActive(false);
+        Scene4.SetActive(false);
+        Scene1.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && SceneNo <= 3)
+        if (Input.GetMouseButtonDown(0) && SceneNo <= 5)
         {
-            SceneNo++;
+            
             Debug.Log(SceneNo);
             ChangeScene = 1;
             if (SceneNo == 4)
             {
                 SceneManager.LoadScene("Tutorial Scene");
             }
+            SceneNo++;
         }
         else if (Input.GetMouseButtonDown(1) && SceneNo >= 2)
         {
@@ -54,17 +61,26 @@ public class SceneDirector : MonoBehaviour
                     case 1:
                         Scene1.SetActive(true);
                         Scene2.SetActive(false);
-                        text1.text = "오늘도 평범하게 힘든 하루였다..";
+                        text1.text = "하.. 코딩";
                         break;
                     case 2:
                         Scene2.SetActive(true);
                         Scene1.SetActive(false);
-                        text1.text = "뭐야";
+                        Scene3.SetActive(false);
+                        text1.text = "이 게임은 코딩을 어떻게 했길레 버그가 이렇게 많아..?";
                         break;
                     case 3:
-                        Destroy(Scene1);
-                        Destroy(Scene2);
-                        text1.text = "3번째 텍스트";
+                        Scene3.SetActive(true);
+                        Scene2.SetActive(false);
+                        Scene4.SetActive(false);
+                        text1.text = "후.. 머리도 아픈데 잠이나 자자..";
+                        break;
+                    case 4:
+                        Scene3.SetActive(false);
+                        Scene4.SetActive(true);
+                        text1.text = "으음...응?";
+                        break;
+                    case 5:
                         break;
                 }
                 ChangeScene = 0;
