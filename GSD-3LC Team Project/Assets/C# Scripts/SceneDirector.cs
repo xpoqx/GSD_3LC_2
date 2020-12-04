@@ -12,6 +12,10 @@ public class SceneDirector : MonoBehaviour
     public static int SceneNo;
     public int ChangeScene;
 
+    public GameObject talkpanel;
+    public GameObject scanObject;
+    public bool istalking;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,7 @@ public class SceneDirector : MonoBehaviour
         Scene1 = GameObject.Find("Scene1");
         Scene2 = GameObject.Find("Scene2");
         text1 = GameObject.Find("Text").GetComponent<Text>();
-        
+        //talkpanel.SetActive(true);
         ChangeScene = 1;
     }
 
