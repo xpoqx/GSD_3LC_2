@@ -5,26 +5,45 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public TalkManger talkmanager;
     public GameObject talkpanel;
     public Text talktxt;
     public GameObject scanObject;
     public bool istalking;
+    public int talkindex;
 
     // Start is called before the first frame update
 
     public void Action(GameObject scanObj)
     {
-        if(istalking) //대화중이면 대화 끄기
+
+        scanObject = scanObj;
+        ObjectData objData = scanObject.GetComponent<ObjectData>();
+        Talk(objData.id, objData.isNpc);
+        talkpanel.SetActive(istalking);
+    }
+
+    void Talk(int id, bool isNpc)
+    {
+        string talkData = talkmanager.GetTalk(id, talkindex);
+        
+        if (talkData==null)
         {
             istalking = false;
+            talkindex = 0;
+            return;
         }
-        else //대화시작
+        if(isNpc)
         {
-            istalking = true;
-            scanObject = scanObj;
-            talktxt.text = "이것은 " + scanObject.name + "이다."; // 스페이스 누르면 대화창에 물체 이름 출력
+            talktxt.text = talkData;
         }
-        talkpanel.SetActive(istalking);
+        else
+        {
+            talktxt.text = talkData;
+        }
+
+        istalking = true;
+        talkindex++;
     }
     void Start()
     {
