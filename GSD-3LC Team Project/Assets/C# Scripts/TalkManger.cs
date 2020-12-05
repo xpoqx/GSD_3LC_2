@@ -17,6 +17,7 @@ public class TalkManger : MonoBehaviour
         //오브젝트 물체
         talkData.Add(100, new string[] { "이상하게 생긴 사슴이다.", "별 상관 없는 물건인 것 같다." }); //테스트용 사슴
         talkData.Add(200, new string[] { "무거워 보인다." }); // 아틀라스 석상
+        talkData.Add(201, new string[] { "무거워 보인다 돌은 어디로 갔지?" }); // 아틀라스 석상 item1 아이템 보유시 변경대사 테스트
         talkData.Add(210, new string[] { "어울리지 않게 귀여운 곰인형이 있다" }); // 곰인형
         talkData.Add(220, new string[] { "보통 이 반대로 돼 있지 않나?" }); //체스판
         talkData.Add(230, new string[] { "이 신발 비싼건데?" });//쿠찌스네이크

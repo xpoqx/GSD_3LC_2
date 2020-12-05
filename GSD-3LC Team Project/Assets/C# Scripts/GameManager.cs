@@ -25,6 +25,11 @@ public class GameManager : MonoBehaviour
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
         Debug.Log(objData.id +","+ objData.isNpc);
+        if (objData.id==200)
+        {
+            haveitem();
+            SpecialAction(objData);
+        }
         Talk(objData.id, objData.isNpc, objData.isItem);
         talkpanel.SetActive(istalking);
     }
@@ -83,7 +88,7 @@ public class GameManager : MonoBehaviour
     public void getitem(int index)
     {
 
-        items.Add(index, 1);
+        items.Add(1);
     }
 
     public void showitem()
@@ -91,7 +96,6 @@ public class GameManager : MonoBehaviour
         if (items[0] == 1)
         {
             item1.SetActive(true);
-            haveitem1 = true;
         }
         /*if (items[1] == 1)
         {
@@ -113,7 +117,27 @@ public class GameManager : MonoBehaviour
     }
     public void haveitem()
     {
-        
+        if(item1.activeSelf==true)
+        {
+            haveitem1 = true;
+        }
+        else
+        {
+            haveitem1 = false;
+        }
+    }
+    public int SpecialAction(ObjectData objData)
+    {
+        if (haveitem1)
+        {
+            objData.id += 1;
+            return objData.id;
+        }
+        else
+        {
+            return objData.id;
+        }
+
     }
     void Start()
     {
