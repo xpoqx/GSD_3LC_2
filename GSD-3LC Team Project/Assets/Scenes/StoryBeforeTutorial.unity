@@ -674,7 +674,7 @@ MonoBehaviour:
   talkpanel: {fileID: 1458308723}
   scanObject: {fileID: 0}
   istalking: 0
-  talk: {fileID: 0}
+  talk: {fileID: 1620453671}
   naration: 
 --- !u!4 &1343686300
 Transform:
