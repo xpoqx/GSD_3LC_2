@@ -24,12 +24,12 @@ public class GameManager : MonoBehaviour
 
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
-        Debug.Log(objData.id +","+ objData.isNpc);
-        if (objData.id==200)
-        {
-            haveitem();
-            SpecialAction(objData);
-        }
+        Debug.Log(objData.id +","+ objData.isNpc+","+objData.isItem);
+        //if (objData.id==200)
+        //{
+        //    haveitem();
+        //    SpecialAction(objData);
+        //}
         Talk(objData.id, objData.isNpc, objData.isItem);
         talkpanel.SetActive(istalking);
     }
@@ -52,7 +52,16 @@ public class GameManager : MonoBehaviour
         {
             if (isItem)
             {
-                scanObject.SetActive(false);
+                int itemcode = scanObject.GetComponent<ObjectData>().itemcode;
+                if (itemcode > 0)
+                {
+                    GameObject.Find("ItemManager").GetComponent<ItemManager>().GetItem(itemcode);
+                    if (itemcode != 7)
+                    {
+                        scanObject.SetActive(false);
+                    }
+                }
+                
             }
             istalking = false;
             talkindex = 0;
@@ -76,75 +85,32 @@ public class GameManager : MonoBehaviour
             npcname.text = "Player";
             talk.SetMsg(talkData);
         }
-        if(isItem)
-        {
-            getitem(1);
-            showitem();
-        }
+        //if(isItem)
+        //{
+        //    getitem(1);
+        //    showitem();
+        //}
 
         istalking = true;
         talkindex++;
     }
-    public void getitem(int index)
-    {
+    
+    //public int SpecialAction(ObjectData objData)
+    //{
+    //    if (haveitem1)
+    //    {
+    //        objData.id += 1;
+    //        return objData.id;
+    //    }
+    //    else
+    //    {
+    //        return objData.id;
+    //    }
 
-        items.Add(1);
-    }
-
-    public void showitem()
-    {
-        if (items[0] == 1)
-        {
-            item1.SetActive(true);
-        }
-        /*if (items[1] == 1)
-        {
-            item2.SetActive(true);
-        }
-        if (items[2] == 1)
-        {
-            item3.SetActive(true);
-        }
-        if (items[3] == 1)
-        {
-            item4.SetActive(true);
-        }
-        if (items[4] == 1)
-        {
-            item5.SetActive(true);
-        }*/
-        Debug.Log(items[0]);
-    }
-    public void haveitem()
-    {
-        if(item1.activeSelf==true)
-        {
-            haveitem1 = true;
-        }
-        else
-        {
-            haveitem1 = false;
-        }
-    }
-    public int SpecialAction(ObjectData objData)
-    {
-        if (haveitem1)
-        {
-            objData.id += 1;
-            return objData.id;
-        }
-        else
-        {
-            return objData.id;
-        }
-
-    }
+    //}
     void Start()
     {
         talkpanel.SetActive(false);
-        haveitem1 = false;
-        item1 = GameObject.Find("item1");
-        item1.SetActive(false);
     }
 
     // Update is called once per frame

@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     Vector3 dirVec;
     GameObject scanObject;
     public GameManager manager;
+    GameObject Arrow;
+    Vector3 Plocation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +25,17 @@ public class PlayerController : MonoBehaviour
         Debug.Log(Time.deltaTime);
         KeyCount = 0;
         animator = GetComponent<Animator>();
+        
+        Arrow = GameObject.Find("Arrow");
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        Plocation = Player.transform.position;
+        
         if (KeyCount == 2)
         {
             if (manager.istalking)
@@ -63,6 +72,8 @@ public class PlayerController : MonoBehaviour
                 KeyCount++;
                 SideKey = 0;
                 dirVec = Vector3.up;
+                Arrow.transform.position = new Vector3(Plocation.x, Plocation.y + 1.2f, Plocation.z);
+                Arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             if (Input.GetKey(KeyCode.S))
             {
@@ -70,6 +81,8 @@ public class PlayerController : MonoBehaviour
                 KeyCount++;
                 SideKey = 0;
                 dirVec = Vector3.down;
+                Arrow.transform.position = new Vector3(Plocation.x, Plocation.y + -0.9f, Plocation.z);
+                Arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
             }
             if (Input.GetKey(KeyCode.A))
             {
@@ -77,6 +90,8 @@ public class PlayerController : MonoBehaviour
                 KeyCount++;
                 SideKey = -1;
                 dirVec = Vector3.left;
+                Arrow.transform.position = new Vector3(Plocation.x-0.8f, Plocation.y, Plocation.z);
+                Arrow.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             if (Input.GetKey(KeyCode.D))
             {
@@ -84,6 +99,8 @@ public class PlayerController : MonoBehaviour
                 KeyCount++;
                 SideKey = 1;
                 dirVec = Vector3.right;
+                Arrow.transform.position = new Vector3(Plocation.x + 0.8f, Plocation.y, Plocation.z);
+                Arrow.transform.rotation = Quaternion.Euler(0, 0, -90);
             }
             if (SideKey != 0)
             {
@@ -103,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object")); //물체는 Layers를 Object로 바꿔서 구분한다
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 1.2f, LayerMask.GetMask("Object")); //물체는 Layers를 Object로 바꿔서 구분한다
 
         if (rayHit.collider != null)
         {

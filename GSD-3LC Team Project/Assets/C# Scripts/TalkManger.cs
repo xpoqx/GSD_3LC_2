@@ -25,8 +25,15 @@ public class TalkManger : MonoBehaviour
         talkData.Add(250, new string[] { "작은 수레에 걸쇠가 걸려있다." });//수레
         talkData.Add(260, new string[] { "작은 글씨로 5시 40분이 적혀 있다." });//시계
         talkData.Add(270, new string[] { "이렇게 해도 5시 40분인건가.." });//시계 2
-        talkData.Add(280, new string[] { "바위다" });//바위
-
+        talkData.Add(280, new string[] { "바위다." });//바위
+        talkData.Add(510, new string[] { "학교폭력 사진" }); 
+        talkData.Add(520, new string[] { "비리 사진" });
+        talkData.Add(530, new string[] { "노동자 시위 사진" });
+        talkData.Add(540, new string[] { "기자 살인 사진" });
+        talkData.Add(550, new string[] { "교통사고 사진" });
+        talkData.Add(560, new string[] { "열쇠" });
+        talkData.Add(570, new string[] { "마네킹" });
+        
         //npc 천번대부터 시작
         talkData.Add(1000, new string[] { "이게 무슨 일이지?", "나도 모르겠어... 그저 자리를 지키고 있을 뿐" });
         talkData.Add(1010, new string[] { "호기심은 언제나 위험하지", "호기심을 가지는 건 죄일까 아닐까" });
