@@ -63,19 +63,19 @@ public class SceneDirector : MonoBehaviour
                     case 1:
                         Scene1.SetActive(true);
                         Scene2.SetActive(false);
-                        text1.text = "하... 코딩...";
+                        text1.text = "...";
                         break;
                     case 2:
                         Scene2.SetActive(true);
                         Scene1.SetActive(false);
                         Scene3.SetActive(false);
-                        text1.text = "이 게임은 코딩을 어떻게 했길레 버그가 이렇게 많아??";
+                        text1.text = "세상 참 잘~ 돌아간다 ㅋㅋ";
                         break;
                     case 3:
                         Scene3.SetActive(true);
                         Scene2.SetActive(false);
                         Scene4.SetActive(false);
-                        text1.text = "후.. 머리도 아픈데 잠이나 자자..";
+                        text1.text = "머리도 아픈데 그만 잠이나 자자..";
                         break;
                     case 4:
                         Scene3.SetActive(false);
