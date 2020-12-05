@@ -15,7 +15,29 @@ public class SceneDirector : MonoBehaviour
     public GameObject talkpanel;
     public GameObject scanObject;
     public bool istalking;
+    public TalkAnimation talk;
+    public string naration;
 
+   /* public void Narate(string naration)
+    {
+        string nstring = "";
+        if (talk.isTyping)
+        {
+            talk.SetMsg("");
+            return;
+        }
+        else
+        {
+            nstring = naration;
+        }
+        if (nstring == null)
+        {
+            istalking = false;
+            return;
+        }
+        talk.SetMsg(nstring);
+        istalking = true;
+    }*/
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +79,7 @@ public class SceneDirector : MonoBehaviour
         }
         if (ChangeScene == 1)
         {
+            naration = "";
             {
                 switch (SceneNo)
                 {
@@ -64,29 +87,39 @@ public class SceneDirector : MonoBehaviour
                         Scene1.SetActive(true);
                         Scene2.SetActive(false);
                         text1.text = "...";
+                        //naration = "...";
+                        //Narate(naration);
                         break;
                     case 2:
                         Scene2.SetActive(true);
                         Scene1.SetActive(false);
                         Scene3.SetActive(false);
                         text1.text = "세상 참 잘~ 돌아간다 ㅋㅋ";
+                        //naration = "세상 참 잘~ 돌아간다 ㅋㅋ";
+                        //Narate(naration);
                         break;
                     case 3:
                         Scene3.SetActive(true);
                         Scene2.SetActive(false);
                         Scene4.SetActive(false);
                         text1.text = "머리도 아픈데 그만 잠이나 자자..";
+                        //naration = "머리도 아픈데 그만 잠이나 자자..";
+                        //Narate(naration);
                         break;
                     case 4:
                         Scene3.SetActive(false);
                         Scene4.SetActive(true);
                         Scene5.SetActive(false);
                         text1.text = "드르렁...";
+                        //naration = "드르렁...";
+                        //Narate(naration);
                         break;
                     case 5:
                         Scene4.SetActive(false);
                         Scene5.SetActive(true);
                         text1.text = "으음... ...응?";
+                        //naration = "으음... ...응?";
+                        //Narate(naration);
                         break;
                 }
                 ChangeScene = 0;

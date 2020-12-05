@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.DrawRay(rigid.position, dirVec * 1.0f, Color.red);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object")); //물체는 Layers를 Object로 바꿔서 구분한다
 
         if (rayHit.collider != null)

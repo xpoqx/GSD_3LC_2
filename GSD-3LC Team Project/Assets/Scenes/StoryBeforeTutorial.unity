@@ -564,7 +564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1126099792
 RectTransform:
   m_ObjectHideFlags: 0
@@ -671,9 +671,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text1: {fileID: 0}
   ChangeScene: 0
-  talkpanel: {fileID: 0}
+  talkpanel: {fileID: 1458308723}
   scanObject: {fileID: 0}
   istalking: 0
+  talk: {fileID: 0}
+  naration: 
 --- !u!4 &1343686300
 Transform:
   m_ObjectHideFlags: 0
@@ -856,6 +858,7 @@ GameObject:
   - component: {fileID: 1620453668}
   - component: {fileID: 1620453670}
   - component: {fileID: 1620453669}
+  - component: {fileID: 1620453671}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -923,6 +926,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620453667}
   m_CullTransparentMesh: 0
+--- !u!114 &1620453671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620453667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445443f2e3dedab498f06e9b4e05bd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CPS: 15
+  Cursor: {fileID: 1126099791}
+  isTyping: 0
 --- !u!1 &1835036568
 GameObject:
   m_ObjectHideFlags: 0

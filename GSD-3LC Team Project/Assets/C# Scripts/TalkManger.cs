@@ -16,6 +16,15 @@ public class TalkManger : MonoBehaviour
     {
         //오브젝트 물체
         talkData.Add(100, new string[] { "이상하게 생긴 사슴이다.", "별 상관 없는 물건인 것 같다."});
+        talkData.Add(200, new string[] { "" });
+        talkData.Add(210, new string[] { "" });
+        talkData.Add(220, new string[] { "" });
+        talkData.Add(230, new string[] { "" });
+        talkData.Add(240, new string[] { "" });
+        talkData.Add(250, new string[] { "" });
+        talkData.Add(260, new string[] { "" });
+        talkData.Add(270, new string[] { "" });
+        talkData.Add(280, new string[] { "" });
 
         //npc 천번대부터 시작
         talkData.Add(1000, new string[] {"이게 무슨 일이지?", "나도 모르겠어... 그저 자리를 지키고 있을 뿐"});

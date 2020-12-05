@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public bool istalking;
     public int talkindex;
     public Text npcname;
+    public List<int> items = new List<int>();
+    public bool haveitem1;//, haveitem2, haveitem3, haveitem4, haveitem5;
+    GameObject item1;//, item2, item3, item4, item5;
 
 
     // Start is called before the first frame update
@@ -22,11 +25,12 @@ public class GameManager : MonoBehaviour
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
         Debug.Log(objData.id +","+ objData.isNpc);
-        Talk(objData.id, objData.isNpc);
+        Talk(objData.id, objData.isNpc, objData.isItem);
         talkpanel.SetActive(istalking);
     }
 
-    void Talk(int id, bool isNpc)
+
+    void Talk(int id, bool isNpc, bool isItem)
     {
         string talkData = "";
         if (talk.isTyping)
@@ -39,8 +43,12 @@ public class GameManager : MonoBehaviour
             talkData = talkmanager.GetTalk(id, talkindex);
         }
         
-        if (talkData==null)
+        if (talkData==null )
         {
+            if (isItem)
+            {
+                scanObject.SetActive(false);
+            }
             istalking = false;
             talkindex = 0;
             return;
@@ -63,13 +71,56 @@ public class GameManager : MonoBehaviour
             npcname.text = "Player";
             talk.SetMsg(talkData);
         }
+        if(isItem)
+        {
+            getitem(1);
+            showitem();
+        }
 
         istalking = true;
         talkindex++;
     }
+    public void getitem(int index)
+    {
+
+        items.Add(index);
+    }
+
+    public void showitem()
+    {
+        if (items[0] == 1)
+        {
+            item1.SetActive(true);
+            haveitem1 = true;
+        }
+        /*if (items[1] == 1)
+        {
+            item2.SetActive(true);
+        }
+        if (items[2] == 1)
+        {
+            item3.SetActive(true);
+        }
+        if (items[3] == 1)
+        {
+            item4.SetActive(true);
+        }
+        if (items[4] == 1)
+        {
+            item5.SetActive(true);
+        }*/
+        Debug.Log(items[0]);
+    }
+    public void haveitem()
+    {
+        
+    }
     void Start()
     {
         talkpanel.SetActive(false);
+        haveitem1 = false;
+        item1 = GameObject.Find("item1");
+        item1.SetActive(false);
     }
 
     // Update is called once per frame
