@@ -7,10 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public TalkManger talkmanager;
     public GameObject talkpanel;
-    public Text talktxt;
+    public TalkAnimation talk;
     public GameObject scanObject;
     public bool istalking;
     public int talkindex;
+    public Text npcname;
+
 
     // Start is called before the first frame update
 
@@ -25,7 +27,16 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNpc)
     {
-        string talkData = talkmanager.GetTalk(id, talkindex);
+        string talkData = "";
+        if (talk.isTyping)
+        {
+            talk.SetMsg("");
+            return;
+        }
+        else
+        {
+            talkData = talkmanager.GetTalk(id, talkindex);
+        }
         
         if (talkData==null)
         {
@@ -35,11 +46,21 @@ public class GameManager : MonoBehaviour
         }
         if(isNpc)
         {
-            talktxt.text = talkData;
+            talk.SetMsg(talkData);
+            if (talkindex % 2 == 1)
+            {
+                string npcName = scanObject.name;
+                npcname.text = npcName;
+            }
+            else
+            {
+                npcname.text = "Player";
+            }
         }
         else
         {
-            talktxt.text = talkData;
+            npcname.text = "Player";
+            talk.SetMsg(talkData);
         }
 
         istalking = true;

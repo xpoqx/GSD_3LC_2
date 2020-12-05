@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && scanObject != null)
         {
-            manager.Action(scanObject); // 오브젝트 앞에서 스페이스바를 누르면 그 오브젝트의 이름 출력
+            manager.Action(scanObject);
         }
     }
 
