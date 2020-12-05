@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
 
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
-        Debug.Log(objData.id +","+ objData.isNpc);
         Talk(objData.id, objData.isNpc);
         talkpanel.SetActive(istalking);
     }
