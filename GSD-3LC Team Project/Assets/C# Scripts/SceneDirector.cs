@@ -60,7 +60,7 @@ public class SceneDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && SceneNo <= 5)
+        if (Input.GetMouseButtonDown(0) && SceneNo <= 6 && !talk.isTyping) // 컷씬에서는 대사가 모두 출력되기 전에 다음 씬으로 넘어가지 않게 함
         {
             
             Debug.Log(SceneNo);
@@ -69,10 +69,8 @@ public class SceneDirector : MonoBehaviour
             {
                 SceneManager.LoadScene("Tutorial Scene");
             }
-            if(!talk.isTyping)
-            {
+            
                 SceneNo++;
-            }
         }
         else if (Input.GetMouseButtonDown(1) && SceneNo >= 2)
         {

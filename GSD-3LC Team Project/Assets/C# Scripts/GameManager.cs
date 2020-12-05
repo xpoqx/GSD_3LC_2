@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     public void getitem(int index)
     {
 
-        items.Add(index);
+        items.Add(index, 1);
     }
 
     public void showitem()
