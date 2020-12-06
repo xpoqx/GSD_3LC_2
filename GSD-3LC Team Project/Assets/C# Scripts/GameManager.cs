@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public TalkManger talkmanager;
     public GameObject talkpanel;
-    public Image portraitimg;
+    public Image portraitimg, Interactimg;
     public TalkAnimation talk;
     public GameObject scanObject;
     public bool istalking;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         Debug.Log(objData.id +","+ objData.isNpc+","+objData.isItem);
         if (objData.id != 301 && objData.id != 302 && objData.id != 303)
         {
-            Talk(objData.id, objData.isNpc, objData.isItem);
+            Talk(objData.Interactive, objData.id, objData.isNpc, objData.isItem);
             talkpanel.SetActive(istalking);
         }
         else objData.id++;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void Talk(int id, bool isNpc, bool isItem)
+    void Talk(bool isInter,int id, bool isNpc, bool isItem)
     {
         string talkData = "";
         if (talk.isTyping)
@@ -47,7 +47,10 @@ public class GameManager : MonoBehaviour
         {
             talkData = talkmanager.GetTalk(id, talkindex);
         }
-        
+        if (id == 201)
+        {
+            GameObject.Find("CameraManager").GetComponent<CameraManager>().onClock = 1;
+        }
         if (talkData==null )
         {
             if (isItem)
@@ -86,7 +89,9 @@ public class GameManager : MonoBehaviour
         {
             talk.SetMsg(talkData.Split(':')[0]);
             portraitimg.sprite = talkmanager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
+            
             portraitimg.color = new Color(1, 1, 1, 1);
+            Interactimg.color = new Color(1, 1, 1, 0);
             if (talkindex % 2 == 1)
             {
                 string npcName = scanObject.name;
@@ -97,9 +102,19 @@ public class GameManager : MonoBehaviour
                 npcname.text = "Player";
             }
         }
+        else if (isInter)
+        {
+            
+            Interactimg.sprite = talkmanager.GetInteract(id, int.Parse(talkData.Split(':')[1]));
+            Interactimg.color = new Color(1, 1, 1, 1);
+            portraitimg.color = new Color(1, 1, 1, 0);
+            talk.SetMsg(talkData.Split(':')[0]);
+
+        }
         else
         {
             portraitimg.color = new Color(1, 1, 1, 0);
+            Interactimg.color = new Color(1, 1, 1, 0);
             npcname.text = "Player";
             talk.SetMsg(talkData);
         }
@@ -112,7 +127,7 @@ public class GameManager : MonoBehaviour
         istalking = true;
         talkindex++;
     }
-    
+
     //public int SpecialAction(ObjectData objData)
     //{
     //    if (haveitem1)
@@ -126,15 +141,19 @@ public class GameManager : MonoBehaviour
     //    }
 
     //}
+    public Text timer;
+    float time;
     void Start()
     {
         talkpanel.SetActive(false);
-        
+        timer = GameObject.Find("Timer").GetComponent<Text>();
+        time = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        time -= Time.deltaTime;
+        timer.text = string.Format("{00:N1}", time);
     }
 }

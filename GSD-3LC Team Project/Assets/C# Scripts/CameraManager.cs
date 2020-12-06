@@ -13,18 +13,23 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
     Item Phakpok, Pbiri, Pgija, Pgyotong, Pnodong, Key, Key2, Apple, SecretKey, Meal;
     GameObject InventoryUI;
 
-    GameObject Sun;
+    public Vector2 mouse, target;
+    float angle;
+
+    GameObject Sun, Hour,Minute;
     public struct Item //각 아이템의 오브젝트, 소유여부를 확인하기위한 구조체 선언
     {
         public GameObject Obj;
         public int Ininven; // 아이템을 획득하기 전이면 0, 획득하고 나서 1, 획득한 후 사용했다면 2로 설정.
     }
     Item[] Inventory; // 여러 아이템에 한번에 접근하기위한 배열 선언
-
+    public int onClock;
     void Start()
     {
         Player = GameObject.Find("Player");
         Mcamera = GameObject.Find("Main Camera");
+        Hour = GameObject.Find("Hour");
+        Minute = GameObject.Find("Minute");
 
         //아이템 매니저와 병합
         Key.Obj = GameObject.Find("Key");
@@ -45,14 +50,14 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
         Mane = GameObject.Find("Mane");
         ManeApple = GameObject.Find("ManeApple");
-        
 
 
 
+        target = transform.position;
 
         Sun = GameObject.Find("Sun");
 
-        Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple,Phakpok, Pbiri, Pgija, Pgyotong, Pnodong  }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+        Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple,Phakpok, Pnodong, Pgija, Pgyotong,Pbiri  }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
         for (int k = 0; k < Inventory.Length; k++)
         {
             SetFalse(Inventory[k].Obj); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
@@ -60,7 +65,9 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         ManeApple.SetActive(false);
         Sun.SetActive(false);
-
+       Hour.SetActive(false);
+        Minute.SetActive(false);
+        onClock = 0;
     }
 
     // Update is called once per frame
@@ -69,6 +76,13 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         PlayerLocation = new Vector3(Player.transform.position.x, Player.transform.position.y,Mcamera.transform.position.z) ;
         Mcamera.transform.position = (PlayerLocation);
         Camlocation = Mcamera.transform.position;
+        Hour.transform.position = new Vector3(Camlocation.x + 0.1f, Camlocation.y + 1.25f, 1);
+        Minute.transform.position = new Vector3(Camlocation.x + 0.1f, Camlocation.y + 1.25f, 1);
+        if (Input.GetMouseButtonDown(0)&&onClock==1)
+        {
+            Minute.transform.Rotate(0, 0, -30);
+            Hour.transform.Rotate(0, 0, -30 / 12);
+        }
 
         //아이템 매니저와 병합
 
