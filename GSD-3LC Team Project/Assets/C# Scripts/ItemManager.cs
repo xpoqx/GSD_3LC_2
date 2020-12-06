@@ -37,7 +37,8 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        InventoryUI.transform.position = new Vector3(CamPosition.x + 4.875f, CamPosition.y + 3.9f, 1); // 카메라(화면)를 따라가는 인벤토리 좌표
+        //UI로 수정시도 주석처리
+        //InventoryUI.transform.position = new Vector3(CamPosition.x + 4.875f, CamPosition.y + 3.9f, 1); // 카메라(화면)를 따라가는 인벤토리 좌표
         CamPosition = CameraManager.Camlocation; // 전역변수로 선언한 카메라 좌표 by CameraManager
         for (int i = 0; i < Inventory.Length; i++) // 모든 인벤토리 내의 아이템들도 카메라를 따라오게함(화면 기준으로 고정)
         {

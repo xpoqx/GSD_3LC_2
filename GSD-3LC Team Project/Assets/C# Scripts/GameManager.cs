@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public List<int> items = new List<int>();
     public bool haveitem1;//, haveitem2, haveitem3, haveitem4, haveitem5;
     GameObject item1;//, item2, item3, item4, item5;
+    private GameObject manekingapple;
 
 
     // Start is called before the first frame update
@@ -59,6 +60,10 @@ public class GameManager : MonoBehaviour
                     if (itemcode != 7)
                     {
                         scanObject.SetActive(false);
+                    }
+                    if (itemcode == 7)
+                    {
+                        manekingapple.SetActive(true);
                     }
                 }
                 
@@ -111,6 +116,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         talkpanel.SetActive(false);
+        manekingapple=GameObject.Find("마네킹사과");
+        manekingapple.SetActive(false);
     }
 
     // Update is called once per frame
