@@ -7,14 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public TalkManger talkmanager;
     public GameObject talkpanel;
+    public Image portraitimg;
     public TalkAnimation talk;
     public GameObject scanObject;
     public bool istalking;
     public int talkindex;
     public Text npcname;
     public List<int> items = new List<int>();
-    public bool haveitem1;//, haveitem2, haveitem3, haveitem4, haveitem5;
-    GameObject item1;//, item2, item3, item4, item5;
+    
 
 
     // Start is called before the first frame update
@@ -25,13 +25,12 @@ public class GameManager : MonoBehaviour
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
         Debug.Log(objData.id +","+ objData.isNpc+","+objData.isItem);
-        //if (objData.id==200)
-        //{
-        //    haveitem();
-        //    SpecialAction(objData);
-        //}
-        Talk(objData.id, objData.isNpc, objData.isItem);
-        talkpanel.SetActive(istalking);
+        if (objData.id != 301 && objData.id != 302 && objData.id != 303)
+        {
+            Talk(objData.id, objData.isNpc, objData.isItem);
+            talkpanel.SetActive(istalking);
+        }
+        else objData.id++;
 
     }
 
@@ -65,10 +64,17 @@ public class GameManager : MonoBehaviour
                         GameObject.Find("DoorManager").GetComponent<DoorManager>().DoorOpen(DoorIndex0);
                     }
                 }
-                if (itemcode > 0)
+                if (itemcode > 0 )
                 {
-                    CManager.GetComponent<CameraManager>().GetItem(itemcode);
                     scanObject.SetActive(false);
+                    if (CManager.GetComponent<CameraManager>().CheckItem(itemcode) == 1)
+                    {
+                        CManager.GetComponent<CameraManager>().UseItem(itemcode);
+                    }
+                    else
+                    {
+                        CManager.GetComponent<CameraManager>().GetItem(itemcode);
+                    }
                 }
                 
             }
@@ -78,7 +84,9 @@ public class GameManager : MonoBehaviour
         }
         if(isNpc)
         {
-            talk.SetMsg(talkData);
+            talk.SetMsg(talkData.Split(':')[0]);
+            portraitimg.sprite = talkmanager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
+            portraitimg.color = new Color(1, 1, 1, 1);
             if (talkindex % 2 == 1)
             {
                 string npcName = scanObject.name;
@@ -91,6 +99,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            portraitimg.color = new Color(1, 1, 1, 0);
             npcname.text = "Player";
             talk.SetMsg(talkData);
         }
@@ -120,6 +129,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         talkpanel.SetActive(false);
+        
     }
 
     // Update is called once per frame

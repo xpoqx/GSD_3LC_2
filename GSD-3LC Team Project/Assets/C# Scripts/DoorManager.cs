@@ -28,7 +28,7 @@ public class DoorManager : MonoBehaviour
     
     public void DoorOpen(int DoorIndex1)
     {
-        Debug.Log(Doors[0].name+"is opened");
+        Debug.Log(Doors[DoorIndex1].name+"is opened");
         Doors[DoorIndex1 - 1].transform.rotation = Quaternion.Euler(0, 0, 0);
         if (DoorIndex1 == 3)
         {
@@ -36,6 +36,14 @@ public class DoorManager : MonoBehaviour
             GameObject.Find("Secret Wall").SetActive(false);
         }
     }
+    public void Door123Open()
+    {
+        Debug.Log("Door 1,2,3 opened");
+        Door1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door3.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
 
     public void ReadyOpen(int DoorIndex2)
     {

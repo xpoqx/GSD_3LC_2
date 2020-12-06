@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따라가게 하기 위한 코드 + 아이템 매니저 포함
 {
     public GameObject Mcamera;
-    GameObject Player, DManager;
+    GameObject Player, DManager,Mane, ManeApple;
     public Vector3 PlayerLocation;
     public static Vector3 Camlocation;
     // Start is called before the first frame update
@@ -42,11 +42,13 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         Pgija.Obj = GameObject.Find("Pgija");
         Pgyotong.Obj = GameObject.Find("Pgyotong");
         Pnodong.Obj = GameObject.Find("Pnodong");
+
+        Mane = GameObject.Find("Mane");
+        ManeApple = GameObject.Find("ManeApple");
         
-        
-        
-        
-        
+
+
+
 
         Sun = GameObject.Find("Sun");
 
@@ -56,6 +58,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
             SetFalse(Inventory[k].Obj); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
             Inventory[k].Ininven = 0; // 초기 상태인 0, 없음으로 선언
         }
+        ManeApple.SetActive(false);
+        Sun.SetActive(false);
 
     }
 
@@ -108,12 +112,27 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         {
             Sun.SetActive(true);
         }
+        else if (Itemcode == 5)
+        {
+            if (Inventory[4].Ininven == 1)
+            {
+                Mane.SetActive(true);
+                Mane.GetComponent<ObjectData>().id++;
+            }
+
+        }
         
     }
 
     public void UseItem(int Itemcode) // 아이템을 사용했다는 의미로 구조체 Ininven 값을 2로 조정
     {
         Inventory[Itemcode - 1].Ininven = 2;
+        if (Itemcode==5)
+        {
+            Mane.SetActive(false);
+            ManeApple.SetActive(true);
+            DManager.GetComponent<DoorManager>().Door123Open();
+        }
     }
 
 
