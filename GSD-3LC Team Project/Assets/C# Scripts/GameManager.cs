@@ -15,14 +15,13 @@ public class GameManager : MonoBehaviour
     public List<int> items = new List<int>();
     public bool haveitem1;//, haveitem2, haveitem3, haveitem4, haveitem5;
     GameObject item1;//, item2, item3, item4, item5;
-    private GameObject manekingapple;
 
 
     // Start is called before the first frame update
 
     public void Action(GameObject scanObj)
     {
-
+        
         scanObject = scanObj;
         ObjectData objData = scanObject.GetComponent<ObjectData>();
         Debug.Log(objData.id +","+ objData.isNpc+","+objData.isItem);
@@ -33,6 +32,7 @@ public class GameManager : MonoBehaviour
         //}
         Talk(objData.id, objData.isNpc, objData.isItem);
         talkpanel.SetActive(istalking);
+
     }
 
 
@@ -53,18 +53,22 @@ public class GameManager : MonoBehaviour
         {
             if (isItem)
             {
+                GameObject CManager = GameObject.Find("CameraManager");
+                
                 int itemcode = scanObject.GetComponent<ObjectData>().itemcode;
+                if (id == 998)
+                {
+                    int DoorIndex0 = scanObject.GetComponent<DoorObject>().DoorIndex;
+                    int have = CManager.GetComponent<CameraManager>().CheckItem(DoorIndex0);
+                    if (have == 1)
+                    {
+                        GameObject.Find("DoorManager").GetComponent<DoorManager>().DoorOpen(DoorIndex0);
+                    }
+                }
                 if (itemcode > 0)
                 {
-                    GameObject.Find("ItemManager").GetComponent<ItemManager>().GetItem(itemcode);
-                    if (itemcode != 7)
-                    {
-                        scanObject.SetActive(false);
-                    }
-                    if (itemcode == 7)
-                    {
-                        manekingapple.SetActive(true);
-                    }
+                    CManager.GetComponent<CameraManager>().GetItem(itemcode);
+                    scanObject.SetActive(false);
                 }
                 
             }
@@ -116,8 +120,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         talkpanel.SetActive(false);
-        manekingapple=GameObject.Find("마네킹사과");
-        manekingapple.SetActive(false);
     }
 
     // Update is called once per frame
