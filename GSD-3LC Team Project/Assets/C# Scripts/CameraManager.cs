@@ -16,20 +16,18 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
     public Vector2 mouse, target;
     float angle;
 
-    GameObject Sun, Hour,Minute;
+    GameObject Sun;
     public struct Item //각 아이템의 오브젝트, 소유여부를 확인하기위한 구조체 선언
     {
         public GameObject Obj;
         public int Ininven; // 아이템을 획득하기 전이면 0, 획득하고 나서 1, 획득한 후 사용했다면 2로 설정.
     }
     Item[] Inventory; // 여러 아이템에 한번에 접근하기위한 배열 선언
-    public int onClock;
     void Start()
     {
         Player = GameObject.Find("Player");
         Mcamera = GameObject.Find("Main Camera");
-        Hour = GameObject.Find("Hour");
-        Minute = GameObject.Find("Minute");
+        
 
         //아이템 매니저와 병합
         Key.Obj = GameObject.Find("Key");
@@ -65,9 +63,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         ManeApple.SetActive(false);
         Sun.SetActive(false);
-       Hour.SetActive(false);
-        Minute.SetActive(false);
-        onClock = 0;
+       
     }
 
     // Update is called once per frame
@@ -76,13 +72,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         PlayerLocation = new Vector3(Player.transform.position.x, Player.transform.position.y,Mcamera.transform.position.z) ;
         Mcamera.transform.position = (PlayerLocation);
         Camlocation = Mcamera.transform.position;
-        Hour.transform.position = new Vector3(Camlocation.x + 0.1f, Camlocation.y + 1.25f, 1);
-        Minute.transform.position = new Vector3(Camlocation.x + 0.1f, Camlocation.y + 1.25f, 1);
-        if (Input.GetMouseButtonDown(0)&&onClock==1)
-        {
-            Minute.transform.Rotate(0, 0, -30);
-            Hour.transform.Rotate(0, 0, -30 / 12);
-        }
+        
 
         //아이템 매니저와 병합
 
@@ -91,6 +81,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
             Inventory[i].Obj.transform.position = SetPosition(PlayerLocation, i + 1);
         }
     }
+
     public Vector3 SetPosition(Vector3 Vec3, int order) // 카메라 좌표, 아이템 순서를 받아와서 그에 맞게 아이템 좌표(인벤토리칸) 업데이트
     {
         float orderY = 4.4f;
@@ -102,6 +93,9 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         Vector3 reVec3 = new Vector3(Vec3.x + 0.35f + 1.5f * order, Vec3.y + orderY, 1);
         return reVec3;
     }
+
+
+
     public void SetFalse(GameObject obj) // 옵젝 비활성화 함수
     {
         obj.SetActive(false);
@@ -113,6 +107,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         obj.SetActive(true);
     }
 
+
+
     public void GetItem(int Itemcode) // 아이템을 획득하면 옵젝을 활성화하고 소유여부를 1로 조정한다
     {
         Inventory[Itemcode - 1].Obj.SetActive(true);
@@ -122,7 +118,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         {
             DManager.GetComponent<DoorManager>().ReadyOpen(Itemcode);
         }
-        if (Itemcode == 4) // 4 벼 그림. 먹으면 맵 어딘가 태양 활성화
+        if (Itemcode == 4) // 4 벼 그림. 먹으면 맵의 태양 활성화
         {
             Sun.SetActive(true);
         }
@@ -155,10 +151,5 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         Debug.Log(Inventory[Itemcode-1].Obj.name+" , "+Inventory[Itemcode-1].Ininven);
         return Inventory[Itemcode - 1].Ininven;
     }
-
-    //public static Vector3 GetCamLocation()
-    //{
-    //    return Mcamera.transform.position;
-    //}
-
+    
 }

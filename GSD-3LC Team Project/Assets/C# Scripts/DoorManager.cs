@@ -30,6 +30,7 @@ public class DoorManager : MonoBehaviour
     {
         Debug.Log(Doors[DoorIndex1].name+"is opened");
         Doors[DoorIndex1 - 1].transform.rotation = Quaternion.Euler(0, 0, 0);
+        Doors[DoorIndex1 - 1].GetComponent<ObjectData>().id = 997;
         if (DoorIndex1 == 3)
         {
             Doors[DoorIndex1 - 1].transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -42,6 +43,9 @@ public class DoorManager : MonoBehaviour
         Door1.transform.rotation = Quaternion.Euler(0, 0, 0);
         Door2.transform.rotation = Quaternion.Euler(0, 0, 0);
         Door3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door1.GetComponent<ObjectData>().id = 997;
+        Door2.GetComponent<ObjectData>().id = 997;
+        Door3.GetComponent<ObjectData>().id = 997;
     }
 
 

@@ -26,13 +26,14 @@ public class TalkManger : MonoBehaviour
         talkData.Add(5, new string[] { "작은 열쇠를 찾았다." });
         InteractData.Add(5, InteractArr[0]);
 
+        talkData.Add(997, new string[] { "이 문은 이미 열려있다." });
         talkData.Add(998, new string[] { "문이 열렸다!" });
         talkData.Add(999, new string[] { "이 문은 잠겨있는 것 같다." });
         talkData.Add(444, new string[] { "악마의 형상이다." });
         talkData.Add(9999, new string[] { "이 문은 잠겨있는 것 같다.", "이상하게 더 열고 싶은 문이다." });
 
         talkData.Add(11, new string[] { "이 신발 비싼건데?:0", "신발의 뱀이 물고있던 사과를 떼어냈다.:0" });//그냥 마네킹
-        talkData.Add(12, new string[] { "맛있어 보이는 사과다.:0", "독이 들어있을지 모르니 네가 대신 먹어라:0" });//구찌스네이크의 사과
+        talkData.Add(12, new string[] { "맛있어 보이는 사과지만..:0", "독이 들어있을지 모르니 네가 대신 먹어라:0" });//구찌스네이크의 사과
         talkData.Add(13, new string[] { "마네킹이 사과를 물고 있다.:0" });//사과 문 마네킹
         talkData.Add(100, new string[] { "이상하게 생긴 사슴이다.", "별 상관 없는 물건인 것 같다." }); //테스트용 사슴
         InteractData.Add(11, InteractArr[1]);
@@ -49,7 +50,7 @@ public class TalkManger : MonoBehaviour
 
         talkData.Add(201, new string[] { "시계 밑에 작은 글씨로 5시 40분이 적혀 있다.:0" });//시계
         InteractData.Add(201, InteractArr[5]);
-        talkData.Add(202, new string[] { "작은 글씨로 5시 40분이 적혀 있다." });//시계2
+        talkData.Add(202, new string[] { "이렇게 해도 5시 40분이라고 할 수 있을까." });//시계2
 
         //talkData.Add(301, new string[] { "" });//시크릿 열쇠
         talkData.Add(304, new string[] { "뭐야, 주울 수 있었잖아?:0" });//시크릿 열쇠
