@@ -40,13 +40,16 @@ public class InteractManager : MonoBehaviour
                     break;
                 case 103:
                     CManager.GetComponent<CameraManager>().mealart.GetComponent<ObjectData>().id = 104;
-                    
                     break;
+
 
                 case 201: // 
                     MManager.GetComponent<MissionManager>().ClockOn();
                     break;
                 case 401: // 
+                    MManager.GetComponent<MissionManager>().CartOn();
+                    break;
+                case 402: // 
                     MManager.GetComponent<MissionManager>().CartOn();
                     break;
                 case 501: // 
@@ -80,6 +83,9 @@ public class InteractManager : MonoBehaviour
         {
             switch (objid)
             {
+                case 13:
+                    MManager.GetComponent<MissionManager>().INodong.SetActive(true);
+                    break;
                 case 997:
                     Debug.Log("열린 문과의 대화가 종료되었습니다.");
                     break;
@@ -88,6 +94,9 @@ public class InteractManager : MonoBehaviour
                     
                     break;
                 case 401: // 
+                    MManager.GetComponent<MissionManager>().CartOff();
+                    break;
+                case 402: // 
                     MManager.GetComponent<MissionManager>().CartOff();
                     break;
                 case 501: // 

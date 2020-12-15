@@ -63,7 +63,9 @@ public class TalkManger : MonoBehaviour
 
         talkData.Add(401, new string[] { "어울리지 않게 리어카와 귀여운 곰인형이 함께 있다:0" }); // 곰인형
         InteractData.Add(401, InteractArr[7]);
-        talkData.Add(405, new string[] { "벽에 동그란 뭔가가 박혀있다.","어디에 쓰는 열쇠지?" });
+        talkData.Add(402, new string[] { "곰인형이 넘어졌다. 아프곘다.:0" });
+        InteractData.Add(402, InteractArr[7]);
+        talkData.Add(405, new string[] { "벽에 동그란 뭔가가 박혀있다.","오래된 열쇠인 것 같다." });
 
         talkData.Add(501, new string[] { "무거워 보인다.:0" }); // 아틀라스 석상
         InteractData.Add(501, InteractArr[8]);
@@ -77,23 +79,25 @@ public class TalkManger : MonoBehaviour
         //talkData.Add(270, new string[] { "이렇게 해도 5시 40분인건가.." });//시계 2
         //talkData.Add(280, new string[] { "바위다." });//바위
 
-        talkData.Add(510, new string[] { "사진..? 어디서 튀어나온 거지?:0" });
+        talkData.Add(510, new string[] { "이번엔 학생들..인가?:0" });
         InteractData.Add(510, InteractArr[9]);
         talkData.Add(520, new string[] { "비리 사진" });
-        talkData.Add(530, new string[] { "노동자 시위 사진" });
+        talkData.Add(530, new string[] { "어디서 생겨난지 모를 사진이 있다.:0","사람들이 시위를 하고 모습이 담겨있다.:0" });
+        InteractData.Add(530, InteractArr[13]);
         talkData.Add(540, new string[] { "기자 살인 사진" });
-        talkData.Add(550, new string[] { "교통사고 사진" });
-        
+        talkData.Add(550, new string[] { "깜짝이야.. 교통사고인가?:0" });
+        InteractData.Add(550, InteractArr[14]);
+
 
         talkData.Add(310, new string[] { "마네킹:0" });
         
         //npc 천번대부터 시작
         talkData.Add(1000, new string[] { "이게 무슨 일이지?:0", "나도 모르겠어... 그저 자리를 지키고 있을 뿐:0" }); //  인색
-        talkData.Add(1010, new string[] { "호기심은 언제나 위험하지:0", "호기심을 가지는 건 죄일까 아닐까:0" }); // 탐욕
+        talkData.Add(1010, new string[] { "호기심은 언제나 위험하지..:0", "호기심을 가지는 건 죄일까 아닐까:0" }); // 탐욕
         talkData.Add(1020, new string[] { "너무 으스스하지 않아?:0", "난 항상 추워...:0" }); // 시기
-        talkData.Add(1030, new string[] { "치마를 입기에는 너무 추워 보이는데:0", "난 아직도 뜨거워. 그래서 뜨거운게 필요해:0" }); // 음욕
-        talkData.Add(1040, new string[] { "우린 무슨 죄를 짓고 여길 온걸까:0", "그건 너도 모르고 나도 모르지만 하나 확실한 건 너랑 나는 똑같다는 것뿐:0" }); //분노
-        talkData.Add(1050, new string[] { "수염을 멋지게도 기르시네요:0", "더 이상 깎지 않아도 된다는 장점도 있다네:0" }); // 태만
+        talkData.Add(1030, new string[] { "치마를 입기에는 너무 추워 보이는데.:0", "난 아직도 뜨거워. 그래서 뜨거운게 필요해:0" }); // 음욕
+        talkData.Add(1040, new string[] { "우린 무슨 죄를 짓고 여기에 온 걸까..?:0", "그건 아무도 모르지만 확실한 건\n너랑 나는 똑같다는 것.:0" }); //분노
+        talkData.Add(1050, new string[] { "수염을 멋지게도 기르시네요.:0", "더 이상 깎지 않아도 된다는 장점도 있다네.:0" }); // 태만
 
         //초상화
         portraitData.Add(1000, portraitArr[0]);

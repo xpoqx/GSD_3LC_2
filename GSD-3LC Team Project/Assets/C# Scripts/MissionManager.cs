@@ -5,12 +5,18 @@ using UnityEngine;
 public class MissionManager : MonoBehaviour
 {
     GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock;
-    GameObject IHakpok; //미션 후 나타날 사진들
+    public GameObject IHakpok,INodong,IGyotong; //미션 후 나타날 사진들
     public Vector3 Camloc; //카메라 위치
     public int onClockMission, HourDegree, MinuteDegree, onCartMission, onAtlasMission;
+    GameObject target, CManager;
+    Vector2 pos;
+    RaycastHit2D hit;
+
     // Start is called before the first frame update
     void Start()
     {
+        CManager = GameObject.Find("CameraManager");
+
         Hour = GameObject.Find("Hour");
         Minute = GameObject.Find("Minute");
         Clock1 = GameObject.Find("Clock1");
@@ -26,13 +32,17 @@ public class MissionManager : MonoBehaviour
         //Minute.SetActive(false);
         Clock2.SetActive(false);
         ClockOff();
+        CartOff();
         HourDegree = 2;
         MinuteDegree = 5;
 
         // 위쪽은 미션 오브젝트, 아래쪽은 미션을 통해 나타날 오브젝트.
         IHakpok = GameObject.Find("IHakpok");
-
+        INodong = GameObject.Find("INodong");
+        IGyotong = GameObject.Find("IGyotong");
         IHakpok.SetActive(false);
+        INodong.SetActive(false);
+        IGyotong.SetActive(false);
     }
 
     // Update is called once per frame
@@ -69,6 +79,42 @@ public class MissionManager : MonoBehaviour
         // 4번방 수레미션 코드
         if (onCartMission == 1)
         {
+            int havekey = CManager.GetComponent<CameraManager>().CheckItem(2);
+            if (havekey == 1)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+                }
+                if (hit.collider != null)
+                {
+                    target = hit.collider.gameObject;
+                    if (target.Equals(Lock))
+                    {
+                        Lock.SetActive(false);
+                        Table.GetComponent<ObjectData>().id = 402;
+                        IGyotong.SetActive(true);
+                        if (Cart.transform.position.x < Camloc.x+0.4f)
+                        {
+                            Cart.transform.Translate(0.005f, -0.00022f, 0);
+                        }
+                        else
+                        {
+                            if (Doll.transform.rotation.z > -0.75)
+                            {
+                                Doll.transform.Rotate(0, 0, -0.5f);
+                                Debug.Log(Doll.transform.rotation);
+                            }
+                            if (Doll.transform.position.y > Camloc.y-0.2f)
+                            {
+                                Doll.transform.Translate(0.002f,0, 0);
+                            }
+                        }
+                    }
+                }
+            }
+            
             
         }
         else
@@ -124,22 +170,46 @@ public class MissionManager : MonoBehaviour
     public void CartOn()
     {
         onCartMission = 1;
-        Cart.transform.position = new Vector3(Camloc.x -1.35f, Camloc.y +0.15f, 1);
-        Doll.transform.position = new Vector3(Camloc.x +1.35f, Camloc.y +0.06f, 1);
-        Lock.transform.position = new Vector3(Camloc.x -2.21f, Camloc.y +0.12f, 1);
-        Cart.transform.localScale = new Vector3(0.5f, 0.5f, 1);
-        Doll.transform.localScale = new Vector3(0.5f, 0.5f, 1);
-        Lock.transform.localScale = new Vector3(0.5f, 0.5f, 1);
-    }
+        int complete=Table.GetComponent<ObjectData>().id;
+        if (complete == 401)
+        {
+            Cart.transform.position = new Vector3(Camloc.x - 1.35f, Camloc.y + 0.15f, 1);
+            Doll.transform.position = new Vector3(Camloc.x + 1.35f, Camloc.y + 0.06f, 1);
+            Lock.transform.position = new Vector3(Camloc.x - 2.21f, Camloc.y + 0.12f, 1);
+            Cart.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            Doll.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+            Lock.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        }
+        else
+        {
+            Cart.transform.position = new Vector3(Camloc.x + 0.4f, Camloc.y +0.1f, 1);
+            Doll.transform.position = new Vector3(Camloc.x + 1.7f, Camloc.y - 0.2f, 1);
+            Cart.transform.localScale = new Vector3(0.5f, 0.5f, 1); 
+            Doll.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        }
+        
+        
+    } 
     public void CartOff()
     {
         onCartMission = 0;
-        Cart.transform.position = new Vector3(39.455f, -9.069f, 1);
-        Doll.transform.position = new Vector3(40.522f, -9.109f, 1);
-        Lock.transform.position = new Vector3(39.114f, -9.088f, 1);
-        Cart.transform.localScale = new Vector3(0.2f, 0.2f, 1);
-        Doll.transform.localScale = new Vector3(0.2f, 0.2f, 1);
-        Lock.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        int complete = Table.GetComponent<ObjectData>().id;
+        if (complete == 401)
+        {
+            Cart.transform.position = new Vector3(39.455f, -9.069f, 1);
+            Doll.transform.position = new Vector3(40.522f, -9.109f, 1);
+            Lock.transform.position = new Vector3(39.114f, -9.088f, 1);
+            Cart.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            Doll.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            Lock.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        }
+        else
+        {
+            Cart.transform.position = new Vector3(40.086f, -9.078f, 1);
+            Doll.transform.position = new Vector3(40.558f, -9.171f, 1);
+            Cart.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+            Doll.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        }
     }
 
     public void AtlasOn()
