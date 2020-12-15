@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따라가게 하기 위한 코드 + 아이템 매니저 포함
 {
-    public GameObject Mcamera;
-    GameObject Player, DManager,Mane, ManeApple;
+    public GameObject Mcamera, mealart, Sun;
+    GameObject Player, DManager,Mane, ManeApple, Devil;
     public Vector3 PlayerLocation;
     public static Vector3 Camlocation;
-    // Start is called before the first frame update
-    //아이템 매니저와 병합
-    Item Phakpok, Pbiri, Pgija, Pgyotong, Pnodong, Key, Key2, Apple, SecretKey, Meal;
-    GameObject InventoryUI;
+
+    public Item Phakpok, Pbiri, Pgija, Pgyotong, Pnodong, Key, Key2, Apple, SecretKey, Meal; // 획득 가능한 아이템들(인벤토리 관련)
 
     public Vector2 mouse, target;
     float angle;
 
-    GameObject Sun;
+    float devilscale;
+    
     public struct Item //각 아이템의 오브젝트, 소유여부를 확인하기위한 구조체 선언
     {
         public GameObject Obj;
@@ -27,7 +26,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
     {
         Player = GameObject.Find("Player");
         Mcamera = GameObject.Find("Main Camera");
-        
+        DManager = GameObject.Find("DoorManager");
 
         //아이템 매니저와 병합
         Key.Obj = GameObject.Find("Key");
@@ -35,10 +34,10 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         SecretKey.Obj = GameObject.Find("SecretKey");
 
         Meal.Obj = GameObject.Find("meal");
+        mealart = GameObject.Find("mealart");
         Apple.Obj = GameObject.Find("Apple");
 
-        DManager = GameObject.Find("DoorManager");
-        InventoryUI = GameObject.Find("InventoryUI"); //인벤토리, 획득가능한 아이템들 Find.
+        
 
         Phakpok.Obj = GameObject.Find("Phakpok");
         Pbiri.Obj = GameObject.Find("Pbiri");
@@ -49,7 +48,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         Mane = GameObject.Find("Mane");
         ManeApple = GameObject.Find("ManeApple");
 
-
+        Devil = GameObject.Find("Devil");
+        devilscale = 0.3f;
 
         target = transform.position;
 
@@ -120,7 +120,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         if (Itemcode == 4) // 4 벼 그림. 먹으면 맵의 태양 활성화
         {
-            Sun.SetActive(true);
+           // Sun.SetActive(true);
         }
         else if (Itemcode == 5)
         {
@@ -152,4 +152,10 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         return Inventory[Itemcode - 1].Ininven;
     }
     
+    public void DevilScaleUp() // 악마 형상을 커지게 함
+    {
+        devilscale = devilscale + 0.1f;
+        Devil.transform.localScale=new Vector3(devilscale, devilscale, 1);
+        //Devil.GetComponent<ObjectData>().id=445;
+    }
 }

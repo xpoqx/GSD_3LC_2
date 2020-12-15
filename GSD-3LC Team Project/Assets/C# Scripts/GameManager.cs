@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject talkpanel;
     public Image portraitimg, Interactimg;
     public TalkAnimation talk;
-    public GameObject scanObject,IManager,ActManager,CManager;
+    public GameObject scanObject,IManager,ActManager,CManager,DManager;
     public bool istalking;
     public int talkindex;
     public Text npcname;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
                 if (id == 998) //id가 998이면 해당 오브젝트가 열 수 있는 문이라는 뜻. 
                 {
                     int DoorIndex0 = scanObject.GetComponent<DoorObject>().DoorIndex; //문 코드를 불러와서
-                    GameObject.Find("DoorManager").GetComponent<DoorManager>().DoorOpen(DoorIndex0); //해당하는 문을 열어준다
+                    DManager.GetComponent<DoorManager>().DoorOpen(DoorIndex0); //해당하는 문을 열어준다
                 }
 
                 if (icode > 0) // 아이템코드가 1 이상이면 획득 가능한 아이템이다
@@ -141,11 +141,12 @@ public class GameManager : MonoBehaviour
     float time, time1;
     void Start()
     {
+        DManager=GameObject.Find("DoorManager");
         ActManager = GameObject.Find("InteractManager");
         CManager = GameObject.Find("CameraManager");
         talkpanel.SetActive(false);
         timer = GameObject.Find("Timer").GetComponent<Text>();
-        time = 3; // 초 시간
+        time = 10; // 초 시간
         time1 = 24; // 분
         
     }
@@ -158,6 +159,10 @@ public class GameManager : MonoBehaviour
         {
             time = 59.4f;
             time1--;
+        }
+        if (time1 < 24)
+        {
+            DManager.GetComponent<DoorManager>().Door456Open();
         }
         timer.text = string.Format(time1+":{00:N0}", time);
     }

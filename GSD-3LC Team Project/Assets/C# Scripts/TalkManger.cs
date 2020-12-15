@@ -30,12 +30,13 @@ public class TalkManger : MonoBehaviour
         talkData.Add(998, new string[] { "문이 열렸다!" });
         talkData.Add(999, new string[] { "이 문은 잠겨있는 것 같다." });
         talkData.Add(444, new string[] { "악마의 형상이다." });
+       // talkData.Add(445, new string[] { "악마의 형상이다." });
         talkData.Add(9999, new string[] { "이 문은 잠겨있는 것 같다.", "이상하게 더 열고 싶은 문이다." });
 
         talkData.Add(11, new string[] { "이 신발 비싼건데?:0", "신발의 뱀이 물고있던 사과를 떼어냈다.:0" });//그냥 마네킹
         talkData.Add(12, new string[] { "맛있어 보이는 사과지만..:0", "독이 들어있을지 모르니 네가 대신 먹어라:0" });//구찌스네이크의 사과
         talkData.Add(13, new string[] { "마네킹이 사과를 물고 있다.:0" });//사과 문 마네킹
-        talkData.Add(100, new string[] { "이상하게 생긴 사슴이다.", "별 상관 없는 물건인 것 같다." }); //테스트용 사슴
+        //talkData.Add(100, new string[] { "이상하게 생긴 사슴이다.", "별 상관 없는 물건인 것 같다." }); //테스트용 사슴
         InteractData.Add(11, InteractArr[1]);
         InteractData.Add(12, InteractArr[2]);
         InteractData.Add(13, InteractArr[3]);
@@ -44,9 +45,13 @@ public class TalkManger : MonoBehaviour
         talkData.Add(456, new string[] { "알파벳 'p' 가 적혀 있다" });
         talkData.Add(777, new string[] { "지옥 by 단테..? 그럼 신곡 안에 있는 내용인가..?" });
 
-        talkData.Add(101, new string[] { "벼? 가을인가 보네. 근데 너무 어둡군.:0" });//벼 그림
+        talkData.Add(101, new string[] { "벼? 가을인가 보네. 근데 뭔가 허전하다.:0" });//벼 그림
         InteractData.Add(101, InteractArr[4]);
-        talkData.Add(102, new string[] { "'어차피 대중은 개돼지야..'" });//태양 문양
+        talkData.Add(102, new string[] { "따뜻해 보이는 태양 문양이다." });//태양 문양 획득
+        talkData.Add(103, new string[] { "문양을 그림 위에 올려놓았다.:0", "...어차피 대중은 개돼지야...:0" });//태양 문양을 벼에다가 놓음
+        InteractData.Add(103, InteractArr[10]);
+        talkData.Add(104, new string[] { "...어차피 대중은 개돼지야...:0" });//벼 다시 누를때
+        InteractData.Add(104, InteractArr[11]);
 
         talkData.Add(201, new string[] { "시계 밑에 작은 글씨로 5시 40분이 적혀 있다.:0" });//시계
         InteractData.Add(201, InteractArr[5]);
@@ -58,23 +63,26 @@ public class TalkManger : MonoBehaviour
 
         talkData.Add(401, new string[] { "어울리지 않게 리어카와 귀여운 곰인형이 함께 있다:0" }); // 곰인형
         InteractData.Add(401, InteractArr[7]);
+        talkData.Add(405, new string[] { "벽에 동그란 뭔가가 박혀있다.","어디에 쓰는 열쇠지?" });
 
         talkData.Add(501, new string[] { "무거워 보인다.:0" }); // 아틀라스 석상
         InteractData.Add(501, InteractArr[8]);
         talkData.Add(502, new string[] { "무거워 보인다 돌은 어디로 갔지?" }); // 아틀라스 석상 item1 아이템 보유시 변경대사 테스트
        
-        talkData.Add(601, new string[] { "보통 이 반대로 돼 있지 않나?" }); //체스판
-        
-        
+        talkData.Add(601, new string[] { "보통 이 반대로 돼 있지 않나?:0" }); //체스판
+        InteractData.Add(601, InteractArr[12]);
+
         //talkData.Add(402, new string[] { "작은 수레에 걸쇠가 걸려있다." });//수레
-        
+
         //talkData.Add(270, new string[] { "이렇게 해도 5시 40분인건가.." });//시계 2
         //talkData.Add(280, new string[] { "바위다." });//바위
-        //talkData.Add(510, new string[] { "학교폭력 사진" }); 
-        //talkData.Add(520, new string[] { "비리 사진" });
-        //talkData.Add(530, new string[] { "노동자 시위 사진" });
-        //talkData.Add(540, new string[] { "기자 살인 사진" });
-        //talkData.Add(550, new string[] { "교통사고 사진" });
+
+        talkData.Add(510, new string[] { "사진..? 어디서 튀어나온 거지?:0" });
+        InteractData.Add(510, InteractArr[9]);
+        talkData.Add(520, new string[] { "비리 사진" });
+        talkData.Add(530, new string[] { "노동자 시위 사진" });
+        talkData.Add(540, new string[] { "기자 살인 사진" });
+        talkData.Add(550, new string[] { "교통사고 사진" });
         
 
         talkData.Add(310, new string[] { "마네킹:0" });

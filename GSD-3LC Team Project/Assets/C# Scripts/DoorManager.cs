@@ -47,6 +47,16 @@ public class DoorManager : MonoBehaviour
         Door2.GetComponent<ObjectData>().id = 997;
         Door3.GetComponent<ObjectData>().id = 997;
     }
+    public void Door456Open()
+    {
+        Debug.Log("Door 4,5,6 opened");
+        Door4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door5.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door6.transform.rotation = Quaternion.Euler(0, 0, 0);
+        Door4.GetComponent<ObjectData>().id = 997;
+        Door5.GetComponent<ObjectData>().id = 997;
+        Door6.GetComponent<ObjectData>().id = 997;
+    }
 
 
     public void ReadyOpen(int DoorIndex2)
