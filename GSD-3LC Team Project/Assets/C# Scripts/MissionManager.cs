@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class MissionManager : MonoBehaviour
     GameObject target, CManager;
     Vector2 pos;
     RaycastHit2D hit;
+    int clicktime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -125,7 +127,25 @@ public class MissionManager : MonoBehaviour
        
         if (onAtlasMission == 1)
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+                if (hit.collider != null)
+                    target = hit.collider.gameObject;
+                if (target.Equals(AtlasRock))
+                    clicktime += 1; //아틀라스락 클릭하면 횟수증가
+            }
+            if (clicktime >= 5) //5번 클릭시 아클라스락 추락
+            {
+                if (AtlasRock.transform.position.y > Camloc.y - 1.12f)
+                {
+                    AtlasRock.GetComponent<BoxCollider2D>().enabled = false; // 바위 콜라이더 비활성화
+                    AtlasRock.transform.Translate(0, -0.05f, 0);
+                }
 
+            }
+            
         }
         else
         {
@@ -214,13 +234,31 @@ public class MissionManager : MonoBehaviour
 
     public void AtlasOn()
     {
-        AtlasRock.transform.position = new Vector3(Camloc.x, Camloc.y + 2.6f, 1);
-        AtlasRock.transform.localScale = new Vector3(1, 1, 1);
+        onAtlasMission = 1;
+        if(clicktime>=5)
+        {
+            AtlasRock.transform.position = new Vector3(Camloc.x, Camloc.y -1.12f, 1);
+            AtlasRock.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            AtlasRock.transform.position = new Vector3(Camloc.x, Camloc.y + 2.6f, 1);
+            AtlasRock.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
     public void AtlasOff()
     {
-        AtlasRock.transform.position = new Vector3(55.88f, -14.64f, 1);
-        AtlasRock.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+        onAtlasMission = 0;
+        if (clicktime >= 5)
+        {
+            AtlasRock.transform.position = new Vector3(55.88f, -15.64f, 1);
+            AtlasRock.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+        }
+        else
+        {
+            AtlasRock.transform.position = new Vector3(55.88f, -14.64f, 1);
+            AtlasRock.transform.localScale = new Vector3(0.3f, 0.3f, 1);
+        }
     }
     public void CheckMission()
     {
