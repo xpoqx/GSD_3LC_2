@@ -5,18 +5,23 @@ using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
-    GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock;
-    public GameObject IHakpok,INodong,IGyotong; //미션 후 나타날 사진들
+    GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock, 
+        Chesspawn, Chessking, Chess;
+    public GameObject IHakpok,INodong,IGyotong,IBiri,IGija; //미션 후 나타날 사진들
     public Vector3 Camloc; //카메라 위치
-    public int onClockMission, HourDegree, MinuteDegree, onCartMission, onAtlasMission;
+    public int onClockMission, HourDegree, MinuteDegree, onCartMission, onAtlasMission,
+        onChessMission;
     GameObject target, CManager;
     Vector2 pos;
     RaycastHit2D hit;
-    int clicktime = 0;
+    float chessx,chessy,chessx1,chessy1;
+    int clicktime;
 
     // Start is called before the first frame update
     void Start()
     {
+        clicktime = 0;
+
         CManager = GameObject.Find("CameraManager");
 
         Hour = GameObject.Find("Hour");
@@ -30,11 +35,14 @@ public class MissionManager : MonoBehaviour
         Cart = GameObject.Find("Cart");
         CartKey = GameObject.Find("CartKey");
         Lock = GameObject.Find("Lock");
-        //Hour.SetActive(false);
-        //Minute.SetActive(false);
+        Chesspawn = GameObject.Find("Chesspawn");
+        Chessking = GameObject.Find("Chessking");
+        Chess = GameObject.Find("Chess");
+
         Clock2.SetActive(false);
         ClockOff();
         CartOff();
+        ChessOff();
         HourDegree = 2;
         MinuteDegree = 5;
 
@@ -42,9 +50,18 @@ public class MissionManager : MonoBehaviour
         IHakpok = GameObject.Find("IHakpok");
         INodong = GameObject.Find("INodong");
         IGyotong = GameObject.Find("IGyotong");
+        IBiri = GameObject.Find("IBiri");
+        IGija = GameObject.Find("IGija");
         IHakpok.SetActive(false);
         INodong.SetActive(false);
         IGyotong.SetActive(false);
+        IBiri.SetActive(false);
+        IGija.SetActive(false);
+
+        chessx = -0.25f;
+        chessy = 1.1f;
+        chessx1 = 0.132f;
+        chessy1 = -0.135f;
     }
 
     // Update is called once per frame
@@ -96,7 +113,11 @@ public class MissionManager : MonoBehaviour
                     {
                         Lock.SetActive(false);
                         Table.GetComponent<ObjectData>().id = 402;
-                        IGyotong.SetActive(true);
+                        if (CManager.GetComponent<CameraManager>().CheckItem(9) == 0)
+                        {
+                            IGyotong.SetActive(true);
+                        }
+                        
                         if (Cart.transform.position.x < Camloc.x+0.4f)
                         {
                             Cart.transform.Translate(0.005f, -0.00022f, 0);
@@ -124,23 +145,32 @@ public class MissionManager : MonoBehaviour
             
         }
 
-       
+        //5번방 아틀라스 바위 미션 코드 시작
         if (onAtlasMission == 1)
         {
+            
             if (Input.GetMouseButtonDown(0))
             {
                 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
                 if (hit.collider != null)
+                {
                     target = hit.collider.gameObject;
-                if (target.Equals(AtlasRock))
-                    clicktime += 1; //아틀라스락 클릭하면 횟수증가
+                    if (target.Equals(AtlasRock))
+                        clicktime += 1; //아틀라스락 클릭하면 횟수증가
+                }
             }
             if (clicktime >= 5) //5번 클릭시 아클라스락 추락
             {
+                AtlasRock.GetComponent<BoxCollider2D>().enabled = false; // 바위 콜라이더 비활성화
+                if (CManager.GetComponent<CameraManager>().CheckItem(8) == 0)
+                {
+                    Atlas.GetComponent<ObjectData>().id = 502;
+                    IGija.SetActive(true);
+                }
                 if (AtlasRock.transform.position.y > Camloc.y - 1.12f)
                 {
-                    AtlasRock.GetComponent<BoxCollider2D>().enabled = false; // 바위 콜라이더 비활성화
+                   
                     AtlasRock.transform.Translate(0, -0.05f, 0);
                 }
 
@@ -151,11 +181,20 @@ public class MissionManager : MonoBehaviour
         {
 
         }
+        // 5번방 아틀라스미션 코드 끝
 
+        // 6번방 체스 미션 코드 시작
+        if (onChessMission == 1)
+        {
+            chessx= Chessking.transform.position.x - Camloc.x;
+            chessy= Chessking.transform.position.y - Camloc.y;
+            chessx1 = Chesspawn.transform.position.x - Camloc.x;
+            chessy1 = Chesspawn.transform.position.y - Camloc.y;
+        }
+        else
+        {
 
-
-
-        // 5번방 아틀라스미션 코드 
+        }
 
 
     }
@@ -260,8 +299,33 @@ public class MissionManager : MonoBehaviour
             AtlasRock.transform.localScale = new Vector3(0.3f, 0.3f, 1);
         }
     }
-    public void CheckMission()
-    {
 
+    public void ChessOn()
+    {
+        onChessMission = 1;
+        Chessking.SetActive(true);
+        Chesspawn.SetActive(true);
+        Chessking.transform.position = new Vector2(Camloc.x + chessx, Camloc.y + chessy);
+        Chesspawn.transform.position = new Vector2(Camloc.x + chessx1, Camloc.y + chessy1);
+    }
+    public void ChessOff()
+    {
+        onChessMission = 0;
+        Debug.Log(chessy1+","+chessy);
+        if (chessy < 0 && chessy1 >1)
+        {
+            Chesspawn.GetComponent<BoxCollider2D>().enabled = false;
+            Chessking.GetComponent<BoxCollider2D>().enabled = false;
+            Chess.GetComponent<ObjectData>().id = 602;
+            if (CManager.GetComponent<CameraManager>().CheckItem(10) == 0)
+            {
+                IGyotong.SetActive(true);
+            }
+
+        }
+        Chessking.SetActive(false);
+        Chesspawn.SetActive(false);
+        Chessking.transform.position = new Vector2(Camloc.x + chessx, Camloc.y + chessy);
+        Chesspawn.transform.position = new Vector2(Camloc.x + chessx1, Camloc.y + chessy1);
     }
 }

@@ -159,11 +159,12 @@ public class GameManager : MonoBehaviour
         {
             time = 59.4f;
             time1--;
+            if (time1 == 23)
+            {
+                DManager.GetComponent<DoorManager>().Door456Open();
+            }
         }
-        if (time1 < 24)
-        {
-            DManager.GetComponent<DoorManager>().Door456Open();
-        }
+        
         timer.text = string.Format(time1+":{00:N0}", time);
     }
 }

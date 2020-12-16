@@ -63,16 +63,19 @@ public class TalkManger : MonoBehaviour
 
         talkData.Add(401, new string[] { "어울리지 않게 리어카와 귀여운 곰인형이 함께 있다:0" }); // 곰인형
         InteractData.Add(401, InteractArr[7]);
-        talkData.Add(402, new string[] { "곰인형이 넘어졌다. 아프곘다.:0" });
+        talkData.Add(402, new string[] { "곰인형이 넘어졌다.:0" });
         InteractData.Add(402, InteractArr[7]);
         talkData.Add(405, new string[] { "벽에 동그란 뭔가가 박혀있다.","오래된 열쇠인 것 같다." });
 
         talkData.Add(501, new string[] { "무거워 보인다.:0" }); // 아틀라스 석상
         InteractData.Add(501, InteractArr[8]);
-        talkData.Add(502, new string[] { "무거워 보인다 돌은 어디로 갔지?" }); // 아틀라스 석상 item1 아이템 보유시 변경대사 테스트
-       
+        talkData.Add(502, new string[] { "돌을 떨어뜨리게 했다.:0" }); // 아틀라스 석상 item1 아이템 보유시 변경대사 테스트
+        InteractData.Add(502, InteractArr[8]);
+
         talkData.Add(601, new string[] { "보통 이 반대로 돼 있지 않나?:0" }); //체스판
         InteractData.Add(601, InteractArr[12]);
+        talkData.Add(602, new string[] { "역시 킹이 제일 뒤로 와야지.:0" }); //체스판 미션 후 
+        InteractData.Add(602, InteractArr[12]);
 
         //talkData.Add(402, new string[] { "작은 수레에 걸쇠가 걸려있다." });//수레
 
@@ -81,11 +84,13 @@ public class TalkManger : MonoBehaviour
 
         talkData.Add(510, new string[] { "이번엔 학생들..인가?:0" });
         InteractData.Add(510, InteractArr[9]);
-        talkData.Add(520, new string[] { "비리 사진" });
+        talkData.Add(520, new string[] { "어딘가 수상해보이는 사람들이다.:0" });
+        InteractData.Add(520, InteractArr[15]);
         talkData.Add(530, new string[] { "어디서 생겨난지 모를 사진이 있다.:0","사람들이 시위를 하고 모습이 담겨있다.:0" });
         InteractData.Add(530, InteractArr[13]);
-        talkData.Add(540, new string[] { "기자 살인 사진" });
-        talkData.Add(550, new string[] { "깜짝이야.. 교통사고인가?:0" });
+        talkData.Add(540, new string[] { "진짜 사람을 죽인건가?..:0" });
+        InteractData.Add(540, InteractArr[16]);
+        talkData.Add(550, new string[] { "깜짝이야.. 교통사고가 난 모습이다:0" });
         InteractData.Add(550, InteractArr[14]);
 
 

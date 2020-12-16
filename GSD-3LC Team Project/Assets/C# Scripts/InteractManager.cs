@@ -55,6 +55,15 @@ public class InteractManager : MonoBehaviour
                 case 501: // 
                     MManager.GetComponent<MissionManager>().AtlasOn();
                     break;
+                case 502: // 
+                    MManager.GetComponent<MissionManager>().AtlasOn();
+                    break;
+                case 601: // 
+                    MManager.GetComponent<MissionManager>().ChessOn();
+                    break;
+                case 602: // 
+                    MManager.GetComponent<MissionManager>().ChessOn();
+                    break;
                 case 997:
                     Debug.Log("열린 문 입니다.");
                     break;
@@ -83,8 +92,11 @@ public class InteractManager : MonoBehaviour
         {
             switch (objid)
             {
-                case 13:
-                    MManager.GetComponent<MissionManager>().INodong.SetActive(true);
+                case 12:
+                    if (CManager.GetComponent<CameraManager>().CheckItem(7) == 0)
+                    {
+                        MManager.GetComponent<MissionManager>().INodong.SetActive(true);
+                    }
                     break;
                 case 997:
                     Debug.Log("열린 문과의 대화가 종료되었습니다.");
@@ -101,6 +113,15 @@ public class InteractManager : MonoBehaviour
                     break;
                 case 501: // 
                     MManager.GetComponent<MissionManager>().AtlasOff();
+                    break;
+                case 502: // 
+                    MManager.GetComponent<MissionManager>().AtlasOff();
+                    break;
+                case 601: // 
+                    MManager.GetComponent<MissionManager>().ChessOff();
+                    break;
+                case 602: // 
+                    MManager.GetComponent<MissionManager>().ChessOff();
                     break;
             }
         }
