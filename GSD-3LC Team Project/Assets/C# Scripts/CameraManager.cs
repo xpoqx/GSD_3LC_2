@@ -11,6 +11,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
     public Item Phakpok, Pbiri, Pgija, Pgyotong, Pnodong, Key, Key2, Apple, SecretKey, Meal; // 획득 가능한 아이템들(인벤토리 관련)
 
+    public Item PTusin, toxic, Pdnote, Snake, Idcard; //분노가 획득 가능한 아이템
+
     public Vector2 mouse, target;
     float angle;
 
@@ -24,6 +26,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
     Item[] Inventory; // 여러 아이템에 한번에 접근하기위한 배열 선언
     void Start()
     {
+        
+
         Player = GameObject.Find("Player");
         Mcamera = GameObject.Find("Main Camera");
         DManager = GameObject.Find("DoorManager");
@@ -55,15 +59,50 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
         Sun = GameObject.Find("Sun");
 
-        Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple,Phakpok, Pnodong, Pgija, Pgyotong,Pbiri  }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
-        for (int k = 0; k < Inventory.Length; k++)
-        {
-            SetFalse(Inventory[k].Obj); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
-            Inventory[k].Ininven = 0; // 초기 상태인 0, 없음으로 선언
-        }
+        // 아래는 분노 오브젝트들 (인벤토리)
+
+        PTusin.Obj = GameObject.Find("PTusin");
+        toxic.Obj = GameObject.Find("toxic");
+        Pdnote.Obj = GameObject.Find("Pdnote");
+        Snake.Obj = GameObject.Find("Snake");
+        Idcard.Obj = GameObject.Find("Idcard");
+
+
+        
         ManeApple.SetActive(false);
         Sun.SetActive(false);
        
+    }
+
+    public void MakeInven()
+    {
+        if (MissionManager.Sin == 1)
+        {
+            Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple, Phakpok, Pnodong, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+            for (int k = 0; k < Inventory.Length; k++)
+            {
+                Inventory[k].Obj.SetActive(false); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
+                Inventory[k].Ininven = 0; // 초기 상태인 0, 없음으로 선언
+            }
+        }
+        else if (MissionManager.Sin == 2)
+        {
+            Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple, PTusin, Pnodong, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+            for (int k = 0; k < Inventory.Length; k++)
+            {
+                Inventory[k].Obj.SetActive(false); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
+                Inventory[k].Ininven = 0; // 초기 상태인 0, 없음으로 선언
+            }
+        }
+        else if (MissionManager.Sin == 3)
+        {
+            Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple, Phakpok, Pnodong, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+            for (int k = 0; k < Inventory.Length; k++)
+            {
+                Inventory[k].Obj.SetActive(false); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
+                Inventory[k].Ininven = 0; // 초기 상태인 0, 없음으로 선언
+            }
+        }
     }
 
     // Update is called once per frame
@@ -96,16 +135,6 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
 
 
-    public void SetFalse(GameObject obj) // 옵젝 비활성화 함수
-    {
-        obj.SetActive(false);
-        //return obj;
-    }
-
-    public void SetTrue(GameObject obj) // 옵젝 활성화 함수
-    {
-        obj.SetActive(true);
-    }
 
 
 

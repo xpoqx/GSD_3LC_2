@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEditor.U2D.Path;
 using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissionManager : MonoBehaviour
 {
+    GameObject Player;
+
     GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock, 
         Chesspawn, Chessking, Chess, Drawer, TutWall,PushWall,Npc1,Npc2,Npc3;
     public GameObject IHakpok,INodong,IGyotong,IBiri,IGija; //미션 후 나타날 사진들
@@ -19,14 +22,22 @@ public class MissionManager : MonoBehaviour
     int clicktime;
     bool DeletedNpc;
 
-    GameObject Player;
+    /// <summary>
+    /// ////////////////////////
+    /// </summary>
+    
+    GameObject PuzzleMain,KnifeDoll, Knife, ITusin;      //분노 옵젝
+
+    GameObject EnterKnife;
+    InputField EKtext;
 
     public static int Sin;
 
     // Start is called before the first frame update
     void Start()
     {
-        Sin = 0;
+        Sin = 2;    // 죄종 사전설정
+
         clicktime = 0;
         Player = GameObject.Find("Player");
         DeletedNpc = false;
@@ -55,6 +66,7 @@ public class MissionManager : MonoBehaviour
         Npc2 = GameObject.FindWithTag("Sin2Npc");
         Npc3 = GameObject.FindWithTag("Sin3Npc");
 
+
         Clock2.SetActive(false);
         ClockOff();
         CartOff();
@@ -78,6 +90,21 @@ public class MissionManager : MonoBehaviour
         chessy = 1.1f;
         chessx1 = 0.132f;
         chessy1 = -0.135f;
+
+        //분노 오브젝트
+        PuzzleMain = GameObject.Find("PuzzleMain");
+        EnterKnife = GameObject.Find("EnterKnife");
+        EKtext = EnterKnife.GetComponent<InputField>();
+        ITusin = GameObject.Find("ITusin");
+        
+        PuzzleMainOff();
+        ITusin.SetActive(false);
+        KnifeDoll = GameObject.Find("KnifeDoll");
+        Knife = GameObject.Find("Knife");
+        Ira1Off();
+
+        
+
     }
 
     // Update is called once per frame
@@ -85,6 +112,7 @@ public class MissionManager : MonoBehaviour
     {
         if (Sin != 0 && !DeletedNpc) // 죄가 선택되면 해당하는 NPC 삭제.
         {
+            CManager.GetComponent<CameraManager>().MakeInven(); //죄종에 맞는 인벤토리 생성.
             if (Sin == 1)
             {
                 Npc1.SetActive(false);
@@ -387,4 +415,85 @@ public class MissionManager : MonoBehaviour
         Drawer.GetComponent<ObjectData>().isItem = false;
         Sin = 1;
     }
+
+    //분노 관련
+
+    public void PuzzleMainOn()
+    {
+        PuzzleMain.transform.position = new Vector3(Camloc.x, Camloc.y+1.2f, 1);
+        PuzzleMain.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+        PuzzleMain.SetActive(true);
+        if (Sin == 2)
+        {
+            EnterKnife.SetActive(true);
+        }
+    }
+    public void PuzzleMainOff()
+    {
+        //Debug.Log(EKtext.text);
+            ITusin.SetActive(true);
+        PuzzleMain.transform.position = new Vector3(20, 7, 1);
+        PuzzleMain.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        PuzzleMain.SetActive(false);
+        EnterKnife.SetActive(false);
+    }
+
+
+    public void Ira1On()
+    {
+        KnifeDoll.transform.position = new Vector3(Camloc.x, Camloc.y + 1.2f, 1);
+        KnifeDoll.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+        Knife.transform.position = new Vector3(Camloc.x+0.54f, Camloc.y + 1.88f, 1);
+        Knife.transform.localScale = new Vector3(0.16f, 0.16f, 1);
+        KnifeDoll.SetActive(true);
+    }
+    public void Ira1Off()
+    {
+        KnifeDoll.transform.position = new Vector3(32.08f, 12.51f, 1);
+        KnifeDoll.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        Knife.transform.position = new Vector3(32.22f, 12.68f, 1);
+        Knife.transform.localScale = new Vector3(0.04f, 0.04f, 1);
+        KnifeDoll.SetActive(false);
+    }
+
+    public void Ira2On()
+    {
+
+    }
+    public void Ira2Off()
+    {
+
+    }
+
+
+
+    public void Ira3On()
+    {
+
+    }
+    public void Ira3Off()
+    {
+
+    }
+
+
+    public void Ira4On()
+    {
+
+    }
+    public void Ira4Off()
+    {
+
+    }
+
+
+    public void Ira5On()
+    {
+
+    }
+    public void Ira5Off()
+    {
+
+    }
+
 }

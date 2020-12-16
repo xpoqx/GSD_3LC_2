@@ -95,6 +95,14 @@ public class InteractManager : MonoBehaviour
                 case 1040:
                     break;
 
+                    //분노 관련 시작
+
+                case 2011: 
+                    MManager.GetComponent<MissionManager>().PuzzleMainOn();
+                    break;
+                case 2101:
+                    MManager.GetComponent<MissionManager>().Ira1On();
+                    break;
 
             }
         }
@@ -153,6 +161,15 @@ public class InteractManager : MonoBehaviour
                     break;
                 case 602: // 
                     MManager.GetComponent<MissionManager>().ChessOff();
+                    break;
+
+                //분노 관련 시작
+
+                case 2011:
+                    MManager.GetComponent<MissionManager>().PuzzleMainOff();
+                    break;
+                case 2101:
+                    MManager.GetComponent<MissionManager>().Ira1Off();
                     break;
             }
         }

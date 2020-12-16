@@ -119,8 +119,10 @@ public class TalkManger : MonoBehaviour
         InteractData.Add(540, InteractArr[16]);
         talkData.Add(550, new string[] { "깜짝이야.. 교통사고가 난 모습이다:0" });
         InteractData.Add(550, InteractArr[14]);
+        talkData.Add(560, new string[] { "...진짜 뛰어내렸을까?:0" });
+        InteractData.Add(560, InteractArr[18]);
 
-        
+
 
         //npc 천번대부터 시작
         talkData.Add(1000, new string[] { "이게 무슨 일이지?:0", "나도 모르겠어... 그저 자리를 지키고 있을 뿐:0" }); //  인색
@@ -139,6 +141,19 @@ public class TalkManger : MonoBehaviour
         portraitData.Add(1040, portraitArr[4]);
         portraitData.Add(1050, portraitArr[5]);
         portraitData.Add(1060, portraitArr[5]); // 교만 초상화 (임시로 5번으로 넣음)
+
+        //분노 관련 오브젝트들
+        talkData.Add(2010, new string[] { "이건 뭐지?:0" });
+        InteractData.Add(2010, InteractArr[17]);
+        talkData.Add(2011, new string[] { "중간에 뭔가 써 넣어야 하나?:0" });
+        InteractData.Add(2011, InteractArr[17]);
+
+        talkData.Add(2100, new string[] { "사람 모형 두개가 서로 붙어있다.:0" });
+        InteractData.Add(2100, InteractArr[17]);
+        talkData.Add(2101, new string[] { "한 쪽 모형이 치사하게 칼을 들고있다:0" });
+        InteractData.Add(2101, InteractArr[17]);
+        talkData.Add(2102, new string[] { "이렇게 하면 모두 말이 된다:0" });
+        InteractData.Add(2102, InteractArr[17]);
 
     }
 
