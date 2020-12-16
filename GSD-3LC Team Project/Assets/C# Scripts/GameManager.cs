@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,8 @@ public class GameManager : MonoBehaviour
     public int talkindex;
     public Text npcname;
     public List<int> items = new List<int>();
-    
+    //public int Sinnum; 죄 선택
+    //Sinnum 0 = 교만 ,1 = 분노, 2 = 음욕
 
 
     // Start is called before the first frame update
@@ -60,6 +62,10 @@ public class GameManager : MonoBehaviour
                 if (id == 998) //id가 998이면 해당 오브젝트가 열 수 있는 문이라는 뜻. 
                 {
                     int DoorIndex0 = scanObject.GetComponent<DoorObject>().DoorIndex; //문 코드를 불러와서
+                    /*if (DoorIndex0 == 1)
+                    {
+                        Sinnum = 0;
+                    }*/
                     DManager.GetComponent<DoorManager>().DoorOpen(DoorIndex0); //해당하는 문을 열어준다
                 }
 
@@ -163,6 +169,7 @@ public class GameManager : MonoBehaviour
             {
                 DManager.GetComponent<DoorManager>().Door456Open();
             }
+
         }
         
         timer.text = string.Format(time1+":{00:N0}", time);

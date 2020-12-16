@@ -9,6 +9,7 @@ public class DoorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+ 
         TutDoor = GameObject.Find("DoorTutorial");
         Door1 = GameObject.Find("Door1");
         Door2 = GameObject.Find("Door2");
@@ -17,7 +18,7 @@ public class DoorManager : MonoBehaviour
         Door5 = GameObject.Find("Door5");
         Door6 = GameObject.Find("Door6");
         SecDoor = GameObject.Find("SecretDoor");
-        Doors = new GameObject[] {TutDoor, Door1, SecDoor, Door2, Door3, Door4, Door5, Door6 };
+        Doors = new GameObject[] {TutDoor, Door1, SecDoor, Door2, Door3, Door4, Door5, Door6};
     }
 
     // Update is called once per frame

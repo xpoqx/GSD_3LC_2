@@ -23,6 +23,9 @@ public class TalkManger : MonoBehaviour
     void GenerateData() //숫자로 물체 구분, 대화 문장 입력
     {
         //오브젝트 물체
+        talkData.Add(2, new string[] { "앞에서 살펴봐야 할 것 같다." });
+        talkData.Add(3, new string[] { "서랍을 밀었다." });
+        talkData.Add(4, new string[] { "서랍을 밀었더니 문이 나타났다." });
         talkData.Add(5, new string[] { "작은 열쇠를 찾았다." });
         InteractData.Add(5, InteractArr[0]);
 
@@ -103,6 +106,7 @@ public class TalkManger : MonoBehaviour
         talkData.Add(1030, new string[] { "치마를 입기에는 너무 추워 보이는데.:0", "난 아직도 뜨거워. 그래서 뜨거운게 필요해:0" }); // 음욕
         talkData.Add(1040, new string[] { "우린 무슨 죄를 짓고 여기에 온 걸까..?:0", "그건 아무도 모르지만 확실한 건\n너랑 나는 똑같다는 것.:0" }); //분노
         talkData.Add(1050, new string[] { "수염을 멋지게도 기르시네요.:0", "더 이상 깎지 않아도 된다는 장점도 있다네.:0" }); // 태만
+        //talkData.Add(1060, new string[] { "" }); 교만
 
         //초상화
         portraitData.Add(1000, portraitArr[0]);
@@ -111,6 +115,7 @@ public class TalkManger : MonoBehaviour
         portraitData.Add(1030, portraitArr[3]);
         portraitData.Add(1040, portraitArr[4]);
         portraitData.Add(1050, portraitArr[5]);
+        //portraitData.Add(1060, new string[] { "" }); 교만
     }
 
     public string GetTalk(int id, int talkindex)

@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.U2D.Path;
 using UnityEditorInternal;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
     GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock, 
-        Chesspawn, Chessking, Chess;
+        Chesspawn, Chessking, Chess, Drawer, TutWall;
     public GameObject IHakpok,INodong,IGyotong,IBiri,IGija; //미션 후 나타날 사진들
     public Vector3 Camloc; //카메라 위치
     public int onClockMission, HourDegree, MinuteDegree, onCartMission, onAtlasMission,
-        onChessMission;
-    GameObject target, CManager;
+        onChessMission, onDrawerMission;
+    GameObject target, CManager, GManager;
     Vector2 pos;
     RaycastHit2D hit;
     float chessx,chessy,chessx1,chessy1;
@@ -23,6 +24,7 @@ public class MissionManager : MonoBehaviour
         clicktime = 0;
 
         CManager = GameObject.Find("CameraManager");
+        GManager = GameObject.Find("GameManager");
 
         Hour = GameObject.Find("Hour");
         Minute = GameObject.Find("Minute");
@@ -38,6 +40,8 @@ public class MissionManager : MonoBehaviour
         Chesspawn = GameObject.Find("Chesspawn");
         Chessking = GameObject.Find("Chessking");
         Chess = GameObject.Find("Chess");
+        Drawer = GameObject.Find("서랍01");
+        TutWall = GameObject.Find("튜토리얼 위벽");
 
         Clock2.SetActive(false);
         ClockOff();
@@ -67,6 +71,7 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Camloc = CameraManager.Camlocation;
         
         //2번방 시계미션 코드 시작
@@ -327,5 +332,18 @@ public class MissionManager : MonoBehaviour
         Chesspawn.SetActive(false);
         Chessking.transform.position = new Vector2(Camloc.x + chessx, Camloc.y + chessy);
         Chesspawn.transform.position = new Vector2(Camloc.x + chessx1, Camloc.y + chessy1);
+    }
+
+    public void DrawerOn()
+    {
+
+       
+    }
+
+    public void DrawerOff()
+    {
+        Drawer.transform.position = new Vector2(5.24f, 3.35f);
+        TutWall.transform.position = new Vector2(-3.03f, 7.98f);
+        Drawer.GetComponent<ObjectData>().id += 1;
     }
 }

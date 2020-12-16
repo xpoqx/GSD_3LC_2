@@ -29,6 +29,9 @@ public class InteractManager : MonoBehaviour
             Debug.Log("인터랙트가" + intcounter + "회 실행되었습니다.");
             switch (objid)
             {
+                case 3:
+                    MManager.GetComponent<MissionManager>().DrawerOn();
+                    break;
                 case 101:
                     if (CManager.GetComponent<CameraManager>().CheckItem(4) == 0)
                     {
@@ -92,6 +95,9 @@ public class InteractManager : MonoBehaviour
         {
             switch (objid)
             {
+                case 3:
+                    MManager.GetComponent<MissionManager>().DrawerOff();
+                    break;
                 case 12:
                     if (CManager.GetComponent<CameraManager>().CheckItem(7) == 0)
                     {
