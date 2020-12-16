@@ -9,6 +9,8 @@ public class ObjectData : MonoBehaviour
     public bool isItem;
     public int itemcode; // 획득 가능한 아이템의 코드와 매치시켜줄 오브젝트의 변수
     public bool Interactive;
+    public int SinNumber;
+    public bool isShared;
 
     // Start is called before the first frame update
     void Start()

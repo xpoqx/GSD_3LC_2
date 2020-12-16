@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class InteractManager : MonoBehaviour
 {
-    GameObject MManager,CManager;
+    GameObject MManager,CManager,GManager,DManager;
     public int intcounter, interacting;
     // Start is called before the first frame update
     void Start()
     {
         CManager = GameObject.Find("CameraManager");
         MManager=GameObject.Find("MissionManager");
+        GManager = GameObject.Find("GameManager");
+        DManager = GameObject.Find("DoorManager");
         intcounter = 0;
         interacting = 0;
     }
@@ -29,8 +31,18 @@ public class InteractManager : MonoBehaviour
             Debug.Log("인터랙트가" + intcounter + "회 실행되었습니다.");
             switch (objid)
             {
+                case 10000:
+                    MissionManager.Sin = 3;
+                    DManager.GetComponent<DoorManager>().DoorOpen(1);
+                    break;
                 case 3:
-                    MManager.GetComponent<MissionManager>().DrawerOn();
+                    MissionManager.Sin = 1;
+                    break;
+                case 5:
+                    if (MissionManager.Sin == 0)
+                    {
+                        MissionManager.Sin = 2;
+                    }
                     break;
                 case 101:
                     if (CManager.GetComponent<CameraManager>().CheckItem(4) == 0)
@@ -72,13 +84,13 @@ public class InteractManager : MonoBehaviour
                     break;
 
                 case 1010:
-                    CManager.GetComponent<CameraManager>().DevilScaleUp();
+                    //CManager.GetComponent<CameraManager>().DevilScaleUp();
                     break;
                 case 1020:
-                    CManager.GetComponent<CameraManager>().DevilScaleUp();
+                    //CManager.GetComponent<CameraManager>().DevilScaleUp();
                     break;
                 case 1030:
-                    CManager.GetComponent<CameraManager>().DevilScaleUp();
+                    //CManager.GetComponent<CameraManager>().DevilScaleUp();
                     break;
                 case 1040:
                     break;
@@ -95,8 +107,21 @@ public class InteractManager : MonoBehaviour
         {
             switch (objid)
             {
+                case 10000:
+                    GManager.GetComponent<GameManager>().DisableLux();
+
+                    break;
                 case 3:
-                    MManager.GetComponent<MissionManager>().DrawerOff();
+                    MManager.GetComponent<MissionManager>().DrawerOn();
+                    break;
+                case 5:
+                    if (MissionManager.Sin == 2)
+                    {
+                        MManager.GetComponent<MissionManager>().WallOn();
+                    }
+                    break;
+                case 6:
+                    MManager.GetComponent<MissionManager>().WallOn();
                     break;
                 case 12:
                     if (CManager.GetComponent<CameraManager>().CheckItem(7) == 0)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class MissionManager : MonoBehaviour
 {
     GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock, 
-        Chesspawn, Chessking, Chess, Drawer, TutWall;
+        Chesspawn, Chessking, Chess, Drawer, TutWall,PushWall,Npc1,Npc2,Npc3;
     public GameObject IHakpok,INodong,IGyotong,IBiri,IGija; //미션 후 나타날 사진들
     public Vector3 Camloc; //카메라 위치
     public int onClockMission, HourDegree, MinuteDegree, onCartMission, onAtlasMission,
@@ -17,11 +17,19 @@ public class MissionManager : MonoBehaviour
     RaycastHit2D hit;
     float chessx,chessy,chessx1,chessy1;
     int clicktime;
+    bool DeletedNpc;
+
+    GameObject Player;
+
+    public static int Sin;
 
     // Start is called before the first frame update
     void Start()
     {
+        Sin = 0;
         clicktime = 0;
+        Player = GameObject.Find("Player");
+        DeletedNpc = false;
 
         CManager = GameObject.Find("CameraManager");
         GManager = GameObject.Find("GameManager");
@@ -42,6 +50,10 @@ public class MissionManager : MonoBehaviour
         Chess = GameObject.Find("Chess");
         Drawer = GameObject.Find("서랍01");
         TutWall = GameObject.Find("튜토리얼 위벽");
+        PushWall = GameObject.Find("PushWall");
+        Npc1 = GameObject.FindWithTag("Sin1Npc");
+        Npc2 = GameObject.FindWithTag("Sin2Npc");
+        Npc3 = GameObject.FindWithTag("Sin3Npc");
 
         Clock2.SetActive(false);
         ClockOff();
@@ -71,6 +83,22 @@ public class MissionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Sin != 0 && !DeletedNpc) // 죄가 선택되면 해당하는 NPC 삭제.
+        {
+            if (Sin == 1)
+            {
+                Npc1.SetActive(false);
+            }
+            else if(Sin == 2)
+            {
+                Npc2.SetActive(false);
+            }
+            else if(Sin == 3)
+            {
+                Npc3.SetActive(false);
+            }
+            DeletedNpc = true;
+        }
 
         Camloc = CameraManager.Camlocation;
         
@@ -312,6 +340,7 @@ public class MissionManager : MonoBehaviour
         Chesspawn.SetActive(true);
         Chessking.transform.position = new Vector2(Camloc.x + chessx, Camloc.y + chessy);
         Chesspawn.transform.position = new Vector2(Camloc.x + chessx1, Camloc.y + chessy1);
+        Player.GetComponent<BoxCollider2D>().enabled = false;
     }
     public void ChessOff()
     {
@@ -324,7 +353,7 @@ public class MissionManager : MonoBehaviour
             Chess.GetComponent<ObjectData>().id = 602;
             if (CManager.GetComponent<CameraManager>().CheckItem(10) == 0)
             {
-                IGyotong.SetActive(true);
+                IBiri.SetActive(true);
             }
 
         }
@@ -332,18 +361,30 @@ public class MissionManager : MonoBehaviour
         Chesspawn.SetActive(false);
         Chessking.transform.position = new Vector2(Camloc.x + chessx, Camloc.y + chessy);
         Chesspawn.transform.position = new Vector2(Camloc.x + chessx1, Camloc.y + chessy1);
+        Player.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    public void WallOn()
+    {
+        if (PushWall.GetComponent<ObjectData>().id == 5)
+        {
+            PushWall.GetComponent<ObjectData>().id = 6;
+            Drawer.GetComponent<ObjectData>().id = 4;
+            Drawer.GetComponent<ObjectData>().isItem = false;
+        }
+        else
+        {
+            TutWall.transform.Translate(-8.5f, 0, 0);
+            PushWall.SetActive(false);
+        }
     }
 
     public void DrawerOn()
     {
-
-       
-    }
-
-    public void DrawerOff()
-    {
-        Drawer.transform.position = new Vector2(5.24f, 3.35f);
-        TutWall.transform.position = new Vector2(-3.03f, 7.98f);
-        Drawer.GetComponent<ObjectData>().id += 1;
+        //Drawer.transform.Translate(-2,0,0);
+        //TutWall.transform.Translate(-8.5f, 0,0);
+        Drawer.GetComponent<ObjectData>().id = 4;
+        Drawer.GetComponent<ObjectData>().isItem = false;
+        Sin = 1;
     }
 }

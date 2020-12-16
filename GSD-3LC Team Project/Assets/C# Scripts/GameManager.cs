@@ -8,16 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public TalkManger talkmanager;
     public GameObject talkpanel;
+    GameObject Luxuria;
     public Image portraitimg, Interactimg;
     public TalkAnimation talk;
-    public GameObject scanObject,IManager,ActManager,CManager,DManager;
+    public GameObject scanObject,IManager,ActManager,CManager,DManager,TManager;
     public bool istalking;
     public int talkindex;
     public Text npcname;
     public List<int> items = new List<int>();
-    //public int Sinnum; 죄 선택
-    //Sinnum 0 = 교만 ,1 = 분노, 2 = 음욕
-
+    // 죄 선택 >> MissionManager의 Sin 전역변수로 사용
 
     // Start is called before the first frame update
 
@@ -30,14 +29,14 @@ public class GameManager : MonoBehaviour
         
         if (objData.id != 301 && objData.id != 302 && objData.id != 303) // 3번방 열쇠 3번 누르는 동안 반응 없도록 하는 조건
         {
-            Talk(objData.Interactive, objData.id, objData.isNpc, objData.isItem);
+            Talk(objData.Interactive, objData.id, objData.isNpc, objData.isItem, objData.SinNumber, objData.isShared);
             talkpanel.SetActive(istalking);
         }
         else objData.id++; // 3번방 열쇠에 해당하는 코드
     }
 
 
-    void Talk(bool isInter,int id, bool isNpc, bool isItem)
+    void Talk(bool isInter,int id, bool isNpc, bool isItem,int SinNumber,bool isShared)
     {
         
         string talkData = "";
@@ -48,7 +47,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            talkData = talkmanager.GetTalk(id, talkindex);
+            if (SinNumber != MissionManager.Sin && !isShared)
+            {
+                talkData = talkmanager.GetTalk(id-1, talkindex);
+            }
+            else
+            {
+                talkData = talkmanager.GetTalk(id, talkindex);
+            }
             ActManager.GetComponent<InteractManager>().Interact(id);
         }
         if (talkData==null )
@@ -62,21 +68,19 @@ public class GameManager : MonoBehaviour
                 if (id == 998) //id가 998이면 해당 오브젝트가 열 수 있는 문이라는 뜻. 
                 {
                     int DoorIndex0 = scanObject.GetComponent<DoorObject>().DoorIndex; //문 코드를 불러와서
-                    /*if (DoorIndex0 == 1)
-                    {
-                        Sinnum = 0;
-                    }*/
+                    
                     DManager.GetComponent<DoorManager>().DoorOpen(DoorIndex0); //해당하는 문을 열어준다
                 }
 
-                if (icode > 0) // 아이템코드가 1 이상이면 획득 가능한 아이템이다
+                if (icode > 0&&(SinNumber==MissionManager.Sin||isShared)) // 아이템코드가 1 이상이면 획득 가능한 아이템이다
                 {
-                    scanObject.SetActive(false);
+                    
+                    if(id!=3) scanObject.SetActive(false);
                     if (CManager.GetComponent<CameraManager>().CheckItem(icode) == 1) // 아이템을 갖고 있다면
                     {
                         CManager.GetComponent<CameraManager>().UseItem(icode); // 유즈 아이템을 실행하고
                     }
-                    else // 가지고 있지 않다면
+                    else if (CManager.GetComponent<CameraManager>().CheckItem(icode) == 0)// 가지고 있지 않다면
                     {
                         CManager.GetComponent<CameraManager>().GetItem(icode); // 겟 아이템을 실행한다.
                     }
@@ -105,8 +109,14 @@ public class GameManager : MonoBehaviour
         }
         else if (isInter)
         {
-            
-            Interactimg.sprite = talkmanager.GetInteract(id, int.Parse(talkData.Split(':')[1]));
+            if (SinNumber != MissionManager.Sin && !isShared)
+            {
+                Interactimg.sprite = talkmanager.GetInteract(id-1, int.Parse(talkData.Split(':')[1]));
+            }
+            else
+            {
+                Interactimg.sprite = talkmanager.GetInteract(id, int.Parse(talkData.Split(':')[1]));
+            }
             Interactimg.color = new Color(1, 1, 1, 1);
             portraitimg.color = new Color(1, 1, 1, 0);
             talk.SetMsg(talkData.Split(':')[0]);
@@ -150,10 +160,14 @@ public class GameManager : MonoBehaviour
         DManager=GameObject.Find("DoorManager");
         ActManager = GameObject.Find("InteractManager");
         CManager = GameObject.Find("CameraManager");
+        TManager = GameObject.Find("TManager");
         talkpanel.SetActive(false);
         timer = GameObject.Find("Timer").GetComponent<Text>();
-        time = 10; // 초 시간
+        time = 3; // 초 시간
         time1 = 24; // 분
+
+        Luxuria = GameObject.Find("Luxuria"); // 가만히 있으면 대사를 띄우기 위한 Empty 오브젝트.
+
         
     }
 
@@ -168,10 +182,20 @@ public class GameManager : MonoBehaviour
             if (time1 == 23)
             {
                 DManager.GetComponent<DoorManager>().Door456Open();
+                if (MissionManager.Sin == 0) // 죄가 설정되지 않았으면 문이 저절로 열리며 음욕으로 선택된다.
+                {
+                    Action(Luxuria);
+                    Luxuria.transform.position = CameraManager.Camlocation;
+                }
             }
 
         }
         
         timer.text = string.Format(time1+":{00:N0}", time);
+    }
+
+    public void DisableLux()
+    {
+        Luxuria.SetActive(false);
     }
 }
