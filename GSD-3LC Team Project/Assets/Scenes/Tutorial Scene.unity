@@ -7425,7 +7425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ae9a6c721b6c04ca44bf86a40713cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectSin: 2
+  SelectSin: 0
   IHakpok: {fileID: 0}
   INodong: {fileID: 0}
   IGyotong: {fileID: 0}
@@ -16705,7 +16705,7 @@ MonoBehaviour:
   itemcode: 1
   Interactive: 0
   SinNumber: 0
-  isShared: 0
+  isShared: 1
 --- !u!1 &2034238914
 GameObject:
   m_ObjectHideFlags: 0

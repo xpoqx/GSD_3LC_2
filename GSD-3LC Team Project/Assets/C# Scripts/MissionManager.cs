@@ -199,7 +199,7 @@ public class MissionManager : MonoBehaviour
             }
             else
             {
-                //Drawer.GetComponent<ObjectData>().id = 2;
+                Drawer.GetComponent<ObjectData>().id = 2;
                 Drawer.GetComponent<ObjectData>().isItem = false;
             }
             if (Sin == 2)
@@ -255,41 +255,44 @@ public class MissionManager : MonoBehaviour
         // 4번방 수레미션 코드
         if (onCartMission == 1)
         {
-            int havekey = CManager.GetComponent<CameraManager>().CheckItem(2);
-            if (havekey == 1)
+            if (Sin == 1)
             {
-                if (Input.GetMouseButtonDown(0))
+                int havekey = CManager.GetComponent<CameraManager>().CheckItem(2);
+                if (havekey == 1)
                 {
-                    pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-                }
-                if (hit.collider != null)
-                {
-                    target = hit.collider.gameObject;
-                    if (target.Equals(Lock))
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        Lock.SetActive(false);
-                        Table.GetComponent<ObjectData>().id = 402;
-                        if (CManager.GetComponent<CameraManager>().CheckItem(9) == 0)
+                        pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+                    }
+                    if (hit.collider != null)
+                    {
+                        target = hit.collider.gameObject;
+                        if (target.Equals(Lock))
                         {
-                            IGyotong.SetActive(true);
-                            IGyotong.transform.position = new Vector2(42, -9);
-                        }
-
-                        if (Cart.transform.position.x < Camloc.x + 0.4f)
-                        {
-                            Cart.transform.Translate(0.005f, -0.00022f, 0);
-                        }
-                        else
-                        {
-                            if (Doll.transform.rotation.z > -0.75)
+                            Lock.SetActive(false);
+                            Table.GetComponent<ObjectData>().id = 402;
+                            if (CManager.GetComponent<CameraManager>().CheckItem(9) == 0)
                             {
-                                Doll.transform.Rotate(0, 0, -0.5f);
-                                Debug.Log(Doll.transform.rotation);
+                                IGyotong.SetActive(true);
+                                IGyotong.transform.position = new Vector2(42, -9);
                             }
-                            if (Doll.transform.position.y > Camloc.y - 0.2f)
+
+                            if (Cart.transform.position.x < Camloc.x + 0.4f)
                             {
-                                Doll.transform.Translate(0.002f, 0, 0);
+                                Cart.transform.Translate(0.005f, -0.00022f, 0);
+                            }
+                            else
+                            {
+                                if (Doll.transform.rotation.z > -0.75)
+                                {
+                                    Doll.transform.Rotate(0, 0, -0.5f);
+                                    Debug.Log(Doll.transform.rotation);
+                                }
+                                if (Doll.transform.position.y > Camloc.y - 0.2f)
+                                {
+                                    Doll.transform.Translate(0.002f, 0, 0);
+                                }
                             }
                         }
                     }
@@ -306,33 +309,35 @@ public class MissionManager : MonoBehaviour
         //5번방 아틀라스 바위 미션 코드 시작
         if (onAtlasMission == 1)
         {
-
-            if (Input.GetMouseButtonDown(0))
+            if (Sin == 1)
             {
-                pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-                if (hit.collider != null)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    target = hit.collider.gameObject;
-                    if (target.Equals(AtlasRock))
-                        clicktime += 1; //아틀라스락 클릭하면 횟수증가
+                    pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+                    if (hit.collider != null)
+                    {
+                        target = hit.collider.gameObject;
+                        if (target.Equals(AtlasRock))
+                            clicktime += 1; //아틀라스락 클릭하면 횟수증가
+                    }
                 }
-            }
-            if (clicktime >= 5) //5번 클릭시 아클라스락 추락
-            {
-                AtlasRock.GetComponent<BoxCollider2D>().enabled = false; // 바위 콜라이더 비활성화
-                if (CManager.GetComponent<CameraManager>().CheckItem(8) == 0)
+                if (clicktime >= 5) //5번 클릭시 아클라스락 추락
                 {
-                    Atlas.GetComponent<ObjectData>().id = 502;
-                    IGija.SetActive(true);
-                    IGija.transform.position = new Vector2(57.43f, -15.42f);
-                }
-                if (AtlasRock.transform.position.y > Camloc.y - 1.12f)
-                {
+                    AtlasRock.GetComponent<BoxCollider2D>().enabled = false; // 바위 콜라이더 비활성화
+                    if (CManager.GetComponent<CameraManager>().CheckItem(8) == 0)
+                    {
+                        Atlas.GetComponent<ObjectData>().id = 502;
+                        IGija.SetActive(true);
+                        IGija.transform.position = new Vector2(57.43f, -15.42f);
+                    }
+                    if (AtlasRock.transform.position.y > Camloc.y - 1.12f)
+                    {
 
-                    AtlasRock.transform.Translate(0, -0.05f, 0);
-                }
+                        AtlasRock.transform.Translate(0, -0.05f, 0);
+                    }
 
+                }
             }
 
         }
@@ -345,10 +350,13 @@ public class MissionManager : MonoBehaviour
         // 6번방 체스 미션 코드 시작
         if (onChessMission == 1)
         {
-            chessx = Chessking.transform.position.x - Camloc.x;
-            chessy = Chessking.transform.position.y - Camloc.y;
-            chessx1 = Chesspawn.transform.position.x - Camloc.x;
-            chessy1 = Chesspawn.transform.position.y - Camloc.y;
+            if (Sin == 1)
+            {
+                chessx = Chessking.transform.position.x - Camloc.x;
+                chessy = Chessking.transform.position.y - Camloc.y;
+                chessx1 = Chesspawn.transform.position.x - Camloc.x;
+                chessy1 = Chesspawn.transform.position.y - Camloc.y;
+            }
         }
 
 
@@ -734,7 +742,7 @@ public class MissionManager : MonoBehaviour
 
     public void DrawerOn()
     {
-        if (Sin == 0 && Sin==1)
+        if (Sin == 0 || Sin==1)
         {
             Drawer.GetComponent<ObjectData>().id = 4;
             Drawer.GetComponent<ObjectData>().isItem = false;

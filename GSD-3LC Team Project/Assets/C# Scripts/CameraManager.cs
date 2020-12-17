@@ -124,13 +124,16 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         PlayerLocation = new Vector3(Player.transform.position.x, Player.transform.position.y,Mcamera.transform.position.z) ;
         Mcamera.transform.position = (PlayerLocation);
         Camlocation = Mcamera.transform.position;
-        
+
 
         //아이템 매니저와 병합
 
-        for (int i = 0; i < Inventory.Length; i++) // 모든 인벤토리 내의 아이템들도 카메라를 따라오게함(화면 기준으로 고정)
+        if (MissionManager.Sin != 0)
         {
-            Inventory[i].Obj.transform.position = SetPosition(PlayerLocation, i + 1);
+            for (int i = 0; i < Inventory.Length; i++) // 모든 인벤토리 내의 아이템들도 카메라를 따라오게함(화면 기준으로 고정)
+            {
+                Inventory[i].Obj.transform.position = SetPosition(PlayerLocation, i + 1);
+            }
         }
     }
 
