@@ -8,6 +8,9 @@ using System.Reflection;
 
 public class MissionManager : MonoBehaviour
 {
+    public int SelectSin;
+
+
     GameObject Player, PManager;
 
     GameObject Hour, Minute, Clock1, Clock2, Atlas, AtlasRock, Table, Doll, Cart, CartKey, Lock,
@@ -40,10 +43,13 @@ public class MissionManager : MonoBehaviour
 
     public static int Sin;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
-        Sin = 0;    // 죄종 사전설정 1교만2분노3음욕
+        //Sin = 0;    
+        Sin = SelectSin;// 죄종 사전설정 1교만2분노3음욕
 
         Luxuria = GameObject.Find("Luxuria");
 
@@ -191,15 +197,28 @@ public class MissionManager : MonoBehaviour
             {
                 Npc1.SetActive(false);
             }
-            else if (Sin == 2)
+            else
+            {
+                //Drawer.GetComponent<ObjectData>().id = 2;
+                Drawer.GetComponent<ObjectData>().isItem = false;
+            }
+            if (Sin == 2)
             {
                 Npc2.SetActive(false);
             }
-            else if (Sin == 3)
+            else
+            {
+
+            }
+            if (Sin == 3)
             {
                 Npc3.SetActive(false);
                 Mane.GetComponent<ObjectData>().SinNumber = 3;
                 ManeApple.GetComponent<ObjectData>().SinNumber = 3;
+            }
+            else
+            {
+
             }
             DeletedNpc = true;
         }
@@ -567,14 +586,16 @@ public class MissionManager : MonoBehaviour
     }
     public void ClockOff()
     {
-        //Hour.SetActive(false);
-        //Minute.SetActive(false);
         onClockMission = 0;
-        if (MinuteDegree == 2 && HourDegree == 5)
+        if (Sin == 1)
         {
-            Clock1.SetActive(false);
-            Clock2.SetActive(true);
-            IHakpok.SetActive(true);
+            
+            if (MinuteDegree == 2 && HourDegree == 5)
+            {
+                Clock1.SetActive(false);
+                Clock2.SetActive(true);
+                IHakpok.SetActive(true);
+            }
         }
         Hour.transform.position = new Vector3(56.02f, 20.92f, 1);
         Minute.transform.position = new Vector3(56.02f, 20.92f, 1);
@@ -702,26 +723,27 @@ public class MissionManager : MonoBehaviour
 
     public void WallOn()
     {
-        if (PushWall.GetComponent<ObjectData>().id == 5)
-        {
-            PushWall.GetComponent<ObjectData>().id = 6;
-            Drawer.GetComponent<ObjectData>().id = 4;
-            Drawer.GetComponent<ObjectData>().isItem = false;
-        }
-        else
+        if (PushWall.GetComponent<ObjectData>().id == 6)
         {
             TutWall.transform.Translate(-8.5f, 0, 0);
             PushWall.SetActive(false);
         }
+        PushWall.GetComponent<ObjectData>().id = 6;
+        
     }
 
     public void DrawerOn()
     {
-        //Drawer.transform.Translate(-2,0,0);
-        //TutWall.transform.Translate(-8.5f, 0,0);
-        Drawer.GetComponent<ObjectData>().id = 4;
-        Drawer.GetComponent<ObjectData>().isItem = false;
-        Sin = 1;
+        if (Sin == 0 && Sin==1)
+        {
+            Drawer.GetComponent<ObjectData>().id = 4;
+            Drawer.GetComponent<ObjectData>().isItem = false;
+            Sin = 1;
+        }
+        else
+        {
+
+        }
     }
 
     //분노 관련
@@ -739,8 +761,10 @@ public class MissionManager : MonoBehaviour
     public void PuzzleMainOff()
     {
         //Debug.Log(EKtext.text);
-        ITusin.SetActive(true);
-
+        if (Sin == 2)
+        {
+            ITusin.SetActive(true);
+        }
         PuzzleMain.transform.position = new Vector3(20, 7, 1);
         PuzzleMain.transform.localScale = new Vector3(0.2f, 0.2f, 1);
         PuzzleMain.SetActive(false);
@@ -781,7 +805,7 @@ public class MissionManager : MonoBehaviour
         {
             if (knifey > -1.4f && knifey < -0.7f)
             {
-                if (CManager.GetComponent<CameraManager>().CheckItem(9) == 0)
+                if (CManager.GetComponent<CameraManager>().CheckItem(9) == 0&&Sin==2)
                 {
                     IGyotong.SetActive(true);
                     IGyotong.transform.position = new Vector2(34, 12);

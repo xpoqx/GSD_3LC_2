@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         talkpanel.SetActive(false);
         timer = GameObject.Find("Timer").GetComponent<Text>();
         time = 2; // 초 시간
-        time1 = 48; // 분
+        time1 = 24; // 분
         time2 = 20; 
         Luxuria = GameObject.Find("Luxuria"); // 가만히 있으면 대사를 띄우기 위한 Empty 오브젝트.
 
@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         {
             time = 59.4f;
             time1--;
-            if (time1 == 46) // 1분동안 아무것도 상호작용하지 않으면 음욕으로 자동선택
+            if (time1 == 22) // 1분동안 아무것도 상호작용하지 않으면 음욕으로 자동선택
             {
                 if (MissionManager.Sin == 0) 
                 {
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
                     Luxuria.transform.position = CameraManager.Camlocation;
                 }
             }
-            if (time1 == 23) // 남은시간이 절반이 되면 4,5,6번방 문이 열린다.
+            if (time1 == 12) // 남은시간이 절반이 되면 4,5,6번방 문이 열린다.
             {
                 DManager.GetComponent<DoorManager>().Door456Open();
 

@@ -33,6 +33,7 @@ public class TalkManger : MonoBehaviour
         //3. 음욕 대사
 
         talkData.Add(10000, new string[] { "철컥..", "뭔가가 열리는 소리가 났다." });
+        talkData.Add(2, new string[] { "서랍이 열리지 않는다", "다른 곳을 조사해보자."});
         talkData.Add(3, new string[] { "서랍 안에서 작은 열쇠를 찾았다.", "문을 열 수 있을까?" });
         talkData.Add(4, new string[] { "텅 빈 것 같다." });
         talkData.Add(5, new string[] { "벽이 미세하게 흔들리는 것 같다." });

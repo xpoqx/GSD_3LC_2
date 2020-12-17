@@ -52,7 +52,10 @@ public class InteractManager : MonoBehaviour
                     DManager.GetComponent<DoorManager>().DoorOpen(1);
                     break;
                 case 3:
-                    MissionManager.Sin = 1;
+                    if (MissionManager.Sin == 0)
+                    {
+                        MissionManager.Sin = 1;
+                    }
                     break;
                 case 5:
                     if (MissionManager.Sin == 0)
@@ -181,6 +184,7 @@ public class InteractManager : MonoBehaviour
 
                     break;
                 case 3:
+
                     MManager.GetComponent<MissionManager>().DrawerOn();
                     break;
                 case 5:
