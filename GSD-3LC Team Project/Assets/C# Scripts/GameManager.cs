@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
             if (SinNumber != MissionManager.Sin && !isShared)
             {
-                talkData = talkmanager.GetTalk(id-1, talkindex);
+                    talkData = talkmanager.GetTalk(id - 1, talkindex);
             }
             else
             {
@@ -111,15 +111,16 @@ public class GameManager : MonoBehaviour
         {
             if (SinNumber != MissionManager.Sin && !isShared)
             {
-                Interactimg.sprite = talkmanager.GetInteract(id-1, int.Parse(talkData.Split(':')[1]));
+                    Interactimg.sprite = talkmanager.GetInteract(id - 1, int.Parse(talkData.Split(':')[1]));
             }
             else
             {
                 Interactimg.sprite = talkmanager.GetInteract(id, int.Parse(talkData.Split(':')[1]));
             }
-            Interactimg.color = new Color(1, 1, 1, 1);
-            portraitimg.color = new Color(1, 1, 1, 0);
-            talk.SetMsg(talkData.Split(':')[0]);
+                Interactimg.color = new Color(1, 1, 1, 1);
+                portraitimg.color = new Color(1, 1, 1, 0);
+                talk.SetMsg(talkData.Split(':')[0]);
+            
 
         }
         else
@@ -129,32 +130,14 @@ public class GameManager : MonoBehaviour
             npcname.text = "Player";
             talk.SetMsg(talkData);
         }
-        //if(isItem)
-        //{
-        //    getitem(1);
-        //    showitem();
-        //}
 
         istalking = true;
         talkindex++;
         
     }
-
-    //public int SpecialAction(ObjectData objData)
-    //{
-    //    if (haveitem1)
-    //    {
-    //        objData.id += 1;
-    //        return objData.id;
-    //    }
-    //    else
-    //    {
-    //        return objData.id;
-    //    }
-
-    //}
+    
     public Text timer;
-    float time, time1;
+    float time, time1, time2;
     void Start()
     {
         DManager=GameObject.Find("DoorManager");
@@ -163,9 +146,9 @@ public class GameManager : MonoBehaviour
         TManager = GameObject.Find("TManager");
         talkpanel.SetActive(false);
         timer = GameObject.Find("Timer").GetComponent<Text>();
-        time = 3; // 초 시간
-        time1 = 24; // 분
-
+        time = 2; // 초 시간
+        time1 = 48; // 분
+        time2 = 20; 
         Luxuria = GameObject.Find("Luxuria"); // 가만히 있으면 대사를 띄우기 위한 Empty 오브젝트.
 
         
@@ -173,25 +156,47 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+        
         time -= Time.deltaTime;
+        if (MissionManager.Sin == 2)
+        {
+            if (CManager.GetComponent<CameraManager>().CheckItem(2) == 0)
+            {
+                time2 -= Time.deltaTime;
+            }
+        }
         if (time < -0.4) //초가 0이 되면 60초로 초기화, 분 감소
         {
             time = 59.4f;
             time1--;
-            if (time1 == 23)
+            if (time1 == 46) // 1분동안 아무것도 상호작용하지 않으면 음욕으로 자동선택
             {
-                DManager.GetComponent<DoorManager>().Door456Open();
-                if (MissionManager.Sin == 0) // 죄가 설정되지 않았으면 문이 저절로 열리며 음욕으로 선택된다.
+                if (MissionManager.Sin == 0) 
                 {
                     Action(Luxuria);
                     Luxuria.transform.position = CameraManager.Camlocation;
                 }
             }
+            if (time1 == 23) // 남은시간이 절반이 되면 4,5,6번방 문이 열린다.
+            {
+                DManager.GetComponent<DoorManager>().Door456Open();
 
+            }
+
+        }
+        if (time2 <= 0)
+        {
+            GameObject.Find("MissionManager").GetComponent<MissionManager>().ShowIDcard();
+            time2 = 30;
         }
         
         timer.text = string.Format(time1+":{00:N0}", time);
+    }
+
+    public void Starttime()
+    {
+        time2 = 10;
     }
 
     public void DisableLux()

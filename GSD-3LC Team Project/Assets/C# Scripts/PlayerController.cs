@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public int SideKey;
     Rigidbody2D rigid;
     Vector3 dirVec;
-    GameObject scanObject;
+    GameObject scanObject, CManager;
     public GameManager manager;
     GameObject Arrow;
     Vector3 Plocation;
@@ -25,19 +25,28 @@ public class PlayerController : MonoBehaviour
         Debug.Log(Time.deltaTime);
         KeyCount = 0;
         animator = GetComponent<Animator>();
-        
+        manager = GameObject.Find("GameManager").GetComponent<GameManager>();
         Arrow = GameObject.Find("Arrow");
-
-        
+        CManager = GameObject.Find("CameraManager");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (MissionManager.Sin == 2) {
+            if (CManager.GetComponent<CameraManager>().CheckItem(2) == 0)
+            {
+                if (KeyCount != 0)
+                {
+                    manager.Starttime();
+                }
+            }
+        }
         Plocation = Player.transform.position;
         
         if (KeyCount == 2)
         {
+            
             if (manager.istalking)
             {
                 moveSpeed = 0f;
@@ -49,6 +58,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (KeyCount== 1 || KeyCount >=3 )
         {
+            
             if (manager.istalking)
             {
                 moveSpeed = 0f;
@@ -116,6 +126,11 @@ public class PlayerController : MonoBehaviour
         {
             manager.Action(scanObject);
         }
+    }
+
+    public void Scan()
+    {
+        manager.Action(scanObject);
     }
 
     void FixedUpdate()

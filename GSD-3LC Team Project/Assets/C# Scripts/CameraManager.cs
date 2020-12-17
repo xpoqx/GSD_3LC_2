@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따라가게 하기 위한 코드 + 아이템 매니저 포함
 {
@@ -11,7 +12,9 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
     public Item Phakpok, Pbiri, Pgija, Pgyotong, Pnodong, Key, Key2, Apple, SecretKey, Meal; // 획득 가능한 아이템들(인벤토리 관련)
 
-    public Item PTusin, toxic, Pdnote, Snake, Idcard; //분노가 획득 가능한 아이템
+    public Item PTusin, Ptoxic, PPdnote, PSnake, PIdcard, PFlash, PWater,PLighter; //분노가 획득 가능한 아이템
+
+    public Item PBcard, PHammer, PFrog, PBag, Puni, PHill;
 
     public Vector2 mouse, target;
     float angle;
@@ -62,16 +65,26 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         // 아래는 분노 오브젝트들 (인벤토리)
 
         PTusin.Obj = GameObject.Find("PTusin");
-        toxic.Obj = GameObject.Find("toxic");
-        Pdnote.Obj = GameObject.Find("Pdnote");
-        Snake.Obj = GameObject.Find("Snake");
-        Idcard.Obj = GameObject.Find("Idcard");
-
-
+        Ptoxic.Obj = GameObject.Find("Ptoxic");
+        PPdnote.Obj = GameObject.Find("PPdnote");
+        PSnake.Obj = GameObject.Find("PSnake");
+        PIdcard.Obj = GameObject.Find("PIdcard");
+        PFlash.Obj = GameObject.Find("PFlash");
+        PWater.Obj = GameObject.Find("PWater");
+        PLighter.Obj = GameObject.Find("PLighter");
         
+
+
         ManeApple.SetActive(false);
         Sun.SetActive(false);
-       
+
+        //음욕 인벤토리
+        PBcard.Obj = GameObject.Find("PBcard");
+        PHammer.Obj = GameObject.Find("PHammer");
+        PBag.Obj = GameObject.Find("PBag");
+        PFrog.Obj = GameObject.Find("PFrog");
+        Puni.Obj = GameObject.Find("Puni");
+        PHill.Obj = GameObject.Find("PHill");
     }
 
     public void MakeInven()
@@ -87,7 +100,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         else if (MissionManager.Sin == 2)
         {
-            Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple, PTusin, Pnodong, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+            Inventory = new Item[] { Ptoxic, PIdcard, PFlash, PPdnote, PSnake, PWater, PTusin, Pgija, Pgyotong, Pbiri, PLighter}; //획득 가능한 아이템을 구조체 배열로 지정해줌.
             for (int k = 0; k < Inventory.Length; k++)
             {
                 Inventory[k].Obj.SetActive(false); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
@@ -96,7 +109,7 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         else if (MissionManager.Sin == 3)
         {
-            Inventory = new Item[] { Key, Key2, SecretKey, Meal, Apple, Phakpok, Pnodong, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
+            Inventory = new Item[] { PBag, PHammer, PFrog, PBcard, Apple, Puni, PHill, Pgija, Pgyotong, Pbiri }; //획득 가능한 아이템을 구조체 배열로 지정해줌.
             for (int k = 0; k < Inventory.Length; k++)
             {
                 Inventory[k].Obj.SetActive(false); // 시작 상태에선 아이템이 없으니 인벤토리에 표시하지 않음
@@ -124,7 +137,13 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
     public Vector3 SetPosition(Vector3 Vec3, int order) // 카메라 좌표, 아이템 순서를 받아와서 그에 맞게 아이템 좌표(인벤토리칸) 업데이트
     {
         float orderY = 4.4f;
-        if (order > 5)
+        
+        if(order > 10)
+        {
+            orderY = 2.4f;
+            order = order - 10;
+        }
+        else if (order > 5)
         {
             orderY = 3.4f;
             order = order - 5;
@@ -140,6 +159,8 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
 
     public void GetItem(int Itemcode) // 아이템을 획득하면 옵젝을 활성화하고 소유여부를 1로 조정한다
     {
+        int count = 0;
+        DevilScaleUp();
         Inventory[Itemcode - 1].Obj.SetActive(true);
         Inventory[Itemcode - 1].Ininven = 1;
         Debug.Log(Itemcode);
@@ -149,7 +170,10 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
         }
         if (Itemcode == 4) // 4 벼 그림. 먹으면 맵의 태양 활성화
         {
-           // Sun.SetActive(true);
+            if (MissionManager.Sin == 1)
+            {
+                Sun.SetActive(true);
+            }
         }
         else if (Itemcode == 5)
         {
@@ -160,6 +184,19 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
             }
 
         }
+        for (int i = 1; i < Inventory.Length+1; i++)
+        {
+            int j = CheckItem(i);
+            if (j != 0)
+            {
+                count++;
+            }
+        }
+        if (count == Inventory.Length)
+        {
+            SceneManager.LoadScene("Ending");
+        }
+        
         
     }
 
@@ -172,18 +209,25 @@ public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따�
             ManeApple.SetActive(true);
             DManager.GetComponent<DoorManager>().Door123Open();
         }
+        Inventory[Itemcode - 1].Obj.SetActive(false);
+    }
+
+    public void ReloadItem(int Itemcode) // 아이템 재장전
+    {
+        Inventory[Itemcode - 1].Ininven = 1;
+        Inventory[Itemcode - 1].Obj.SetActive(true);
     }
 
 
     public int CheckItem(int Itemcode) // 아이템이 있는지 확인하기위해 사용. 0=없음 1=있음 2=있었지만 사용함
     {
-        Debug.Log(Inventory[Itemcode-1].Obj.name+" , "+Inventory[Itemcode-1].Ininven);
+        //Debug.Log(Inventory[Itemcode-1].Obj.name+" , "+Inventory[Itemcode-1].Ininven);
         return Inventory[Itemcode - 1].Ininven;
     }
     
     public void DevilScaleUp() // 악마 형상을 커지게 함
     {
-        devilscale = devilscale + 0.1f;
+        devilscale = devilscale + 0.07f;
         Devil.transform.localScale=new Vector3(devilscale, devilscale, 1);
         //Devil.GetComponent<ObjectData>().id=445;
     }
