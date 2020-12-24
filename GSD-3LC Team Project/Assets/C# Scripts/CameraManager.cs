@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// 카메라 움직임과 그 좌표로 오차없이 UI를 표시해줄 인벤토리관련 코드.
+// CamLocation은 카메라 좌표로 미션등을 할때 미션매니저가 불러들일 수 있도록 전역변수로 선언됨.
+
 public class CameraManager : MonoBehaviour // 카메라가 플레이어를 따라가게 하기 위한 코드 + 아이템 매니저 포함
 {
     public GameObject Mcamera, mealart, Sun;

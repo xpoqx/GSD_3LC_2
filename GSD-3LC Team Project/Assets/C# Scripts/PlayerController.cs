@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어의 움직임과 상호작용(스페이스바)키 관련 코드
+
 public class PlayerController : MonoBehaviour
 {
     GameObject Player;

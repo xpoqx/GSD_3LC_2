@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+// 스토리씬, 게임 시작씬으로의 전환.
 
 public class SceneDirector : MonoBehaviour
 {

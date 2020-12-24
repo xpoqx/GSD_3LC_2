@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오브젝트들을 구분하기위한 정보를 입력하기위한 코드.
+
 public class ObjectData : MonoBehaviour
 {
     public int id;

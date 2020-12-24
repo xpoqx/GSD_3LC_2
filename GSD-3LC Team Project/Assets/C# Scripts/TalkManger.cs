@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오브젝트의 id에따라 대사를 출력하기위해 저장된 문자열을 포함하는 코드
+
 public class TalkManger : MonoBehaviour
 {
     Dictionary<int, string[]> talkData;
@@ -21,16 +23,10 @@ public class TalkManger : MonoBehaviour
     }
 
 
-    public void GenerateData() //숫자로 물체 구분, 대화 문장 입력
+    public void GenerateData() //숫자로 물체 구분, 대화 문장 입력 
     {
-        //불러온  Sin번호에 따라 대사를 다르게 입력, 1=교만,2=분노,3=음욕.
-        //0. 공통 대사
-
-        //1. 교만 대사
-
-        //2. 분노 대사
-
-        //3. 음욕 대사
+        // 대사는 공유되며 죄종이 다른 경우 item의 id값을 -1 해 별도의 대사를 출력하게함.
+        
 
         talkData.Add(10000, new string[] { "철컥..", "뭔가가 열리는 소리가 났다." });
         talkData.Add(2, new string[] { "서랍이 열리지 않는다", "다른 곳을 조사해보자."});

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 맵에 존재하는 8개의 문을 관리하는 코드
+
 public class DoorManager : MonoBehaviour
 {
     GameObject TutDoor, Door1, Door2, Door3, Door4, Door5, Door6, SecDoor;
@@ -10,7 +12,7 @@ public class DoorManager : MonoBehaviour
     void Start()
     {
  
-        TutDoor = GameObject.Find("DoorTutorial");
+        TutDoor = GameObject.Find("DoorTutorial"); // 튜토리얼문, 123번은 메인 홀 미션을 통해 열리고 456는 시간이 반절 지나야 열림.
         Door1 = GameObject.Find("Door1");
         Door2 = GameObject.Find("Door2");
         Door3 = GameObject.Find("Door3");

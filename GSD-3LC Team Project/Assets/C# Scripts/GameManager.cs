@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 말걸기, 텍스트 표시 및 넘기기 관련 코드가 들어있음.
+
 public class GameManager : MonoBehaviour
 {
     public TalkManger talkmanager;

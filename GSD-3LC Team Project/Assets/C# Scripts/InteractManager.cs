@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 오브젝트의 id에따라 별도로 실행할(미션 시작과 끝, 아이템 생성 등) 코드들의 매개 코드
+
 public class InteractManager : MonoBehaviour
 {
     GameObject MManager,CManager,GManager,DManager,PManager;

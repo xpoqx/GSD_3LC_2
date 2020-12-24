@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+// 대사를 한번에 띄우지않고 한글자씩 입력되는 방식으로 띄우는 코드
+
 public class TalkAnimation : MonoBehaviour
 {
     public int CPS;

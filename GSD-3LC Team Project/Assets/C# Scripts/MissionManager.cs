@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
 
+// 맵에서 상호작용하여 수행할 미션들의 코드. InteractManager에서 id에 따른 함수를 이 코드 내에서 실행시킴.
+
 public class MissionManager : MonoBehaviour
 {
     public int SelectSin;
@@ -780,7 +782,7 @@ public class MissionManager : MonoBehaviour
     }
 
 
-    public void Ira1On()
+    public void Ira1On() //1번방 미션(칼) 시작
     {
         if (knifex > -0.2f && knifex < 0.4f)
         {
@@ -807,7 +809,7 @@ public class MissionManager : MonoBehaviour
 
         KnifeDoll.SetActive(true);
     }
-    public void Ira1Off()
+    public void Ira1Off() // 1번방 미션(칼) 종료
     {
         if (knifex > -0.2f && knifex < 0.4f)
         {
